@@ -1,0 +1,22 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Pinterest Streamline Simple Icons" clip-path="url(#clip0_94_27)">
+<g id="Vector" filter="url(#filter0_d_94_27)">
+<path d="M24.0341 0C10.7921 0 0.0581055 10.734 0.0581055 23.974C0.0581055 34.132 6.37411 42.808 15.2941 46.298C15.0841 44.4 14.8961 41.492 15.3761 39.42C15.8141 37.546 18.1881 27.506 18.1881 27.506C18.1881 27.506 17.4701 26.066 17.4701 23.944C17.4701 20.618 19.4041 18.122 21.8061 18.122C23.8541 18.122 24.8421 19.66 24.8421 21.498C24.8421 23.556 23.5361 26.632 22.8581 29.482C22.2881 31.868 24.0581 33.812 26.4081 33.812C30.6641 33.812 33.9441 29.322 33.9441 22.838C33.9441 17.116 29.8181 13.1 23.9281 13.1C17.1081 13.1 13.1101 18.224 13.1101 23.498C13.1101 25.564 13.8981 27.784 14.8881 28.98C15.0861 29.22 15.1121 29.43 15.0581 29.67C14.8781 30.42 14.4721 32.068 14.3901 32.396C14.2841 32.846 14.0461 32.938 13.5881 32.726C10.5981 31.346 8.72211 26.97 8.72211 23.434C8.72211 15.882 14.2181 8.93 24.5621 8.93C32.8781 8.93 39.3461 14.864 39.3461 22.776C39.3461 31.046 34.1321 37.7 26.8801 37.7C24.4521 37.7 22.1721 36.442 21.3641 34.942L19.8661 40.638C19.3281 42.728 17.8581 45.342 16.8701 46.93C19.1161 47.62 21.4821 48 23.9701 48C37.1841 48 47.9401 37.27 47.9401 24.026C47.9401 10.78 37.1841 0.052 23.9701 0.052L24.0341 0Z" fill="#FEE8A4"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_94_27" x="-3.94189" y="0" width="55.8818" height="56" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_94_27"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_94_27" result="shape"/>
+</filter>
+<clipPath id="clip0_94_27">
+<rect width="48" height="48" fill="white"/>
+</clipPath>
+</defs>
+</svg>
