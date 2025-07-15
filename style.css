@@ -5,6 +5,7 @@ Version: 1.0
 */
 
 /* Reset and Base Styles */
+
 * {
   margin: 0;
   padding: 0;
@@ -1230,6 +1231,507 @@ footer {
 
   .logo-container {
     margin-bottom: 1em;
+  }
+}
+
+/* Additional utility classes for responsive design */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+}
+
+/* Ensure images are responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Make sure the background video is responsive */
+.bg-video {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+/* --- */
+
+/* Font Declarations - Move these to the top of your main CSS file */
+@font-face {
+  font-family: "Times Sans Serif";
+  src: url("TimesSansSerif.woff2") format("woff2"),
+    url("TimesSansSerif.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Redressed";
+  src: url("Redressed-Regular.woff2") format("woff2"),
+    url("Redressed-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GFS Bodoni Rg";
+  src: url("GFSBodoni-Regular.woff2") format("woff2"),
+    url("GFSBodoni-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Miama";
+  src: url("Miama.woff2") format("woff2"), url("Miama.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Mobile Navigation Styles */
+.mobile-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fee8a4;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 1001;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.mobile-nav-toggle:focus {
+  outline: 2px solid #fee8a4;
+}
+
+/* Hamburger icon */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  width: 25px;
+  height: 18px;
+  justify-content: space-between;
+}
+
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: #fee8a4;
+  transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Mobile Navigation Menu */
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 320px;
+  height: 100vh;
+  background: linear-gradient(180deg, #005b0b, #013106);
+  z-index: 1000;
+  transition: right 0.3s ease;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+  padding-top: 4rem;
+}
+
+.mobile-nav.active {
+  right: 0;
+}
+
+.mobile-nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-nav-links a {
+  color: #fee8a4;
+  text-decoration: none;
+  padding: 1.2rem 2rem;
+  display: block;
+  border-bottom: 1px solid rgba(254, 232, 164, 0.2);
+  transition: background-color 0.3s ease;
+  font-family: "Times Sans Serif", serif;
+  font-size: 1.4rem;
+}
+
+.mobile-nav-links a:hover {
+  background-color: rgba(254, 232, 164, 0.1);
+}
+
+/* Responsive Media Queries for Terra Coffee */
+
+/* Tablet Styles (768px - 1024px) */
+@media screen and (max-width: 1024px) {
+  .hero-section h1 {
+    font-size: 4rem;
+    font-family: "Miama", serif;
+  }
+
+  .hero-section h2 {
+    font-size: 2.4rem;
+    margin: 3em auto 1.5em auto;
+    font-family: "Miama", serif;
+  }
+
+  .nav-links {
+    gap: 1.5rem;
+  }
+
+  .nav-links a {
+    font-size: 1.6rem;
+    font-family: "Times Sans Serif", serif;
+  }
+
+  .hero-layout {
+    gap: 1.5em;
+    margin-bottom: 6em;
+  }
+
+  .logo-container {
+    width: 200px;
+    margin-bottom: 3em;
+  }
+
+  figcaption {
+    font-size: 2rem;
+    font-family: "Redressed", cursive;
+  }
+
+  figcaption:nth-child(2) {
+    font-family: "GFS Bodoni Rg", serif;
+  }
+
+  .cta-button {
+    font-family: "Times Sans Serif", serif;
+  }
+
+  /* Show mobile menu for tablets */
+  .mobile-nav-toggle {
+    display: block;
+  }
+
+  /* Hide desktop navigation */
+  .nav-left,
+  .nav-right {
+    display: none;
+  }
+
+  .mobile-nav {
+    width: 300px;
+  }
+
+  .mobile-nav-links a {
+    font-size: 1.6rem;
+    padding: 1.2rem 2rem;
+  }
+}
+
+/* Mobile Styles (up to 768px) */
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 0.9rem;
+    font-family: "Times Sans Serif", serif;
+  }
+
+  /* Header and Navigation */
+  header {
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+  }
+
+  /* Show mobile menu toggle */
+  .mobile-nav-toggle {
+    display: block;
+  }
+
+  /* Hide desktop navigation */
+  .nav-left,
+  .nav-right {
+    display: none;
+  }
+
+  .mobile-nav {
+    width: 280px;
+  }
+
+  .mobile-nav-links a {
+    font-size: 1.4rem;
+    padding: 1.2rem 2rem;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    padding: 1rem;
+  }
+
+  .hero-text {
+    width: 100%;
+  }
+
+  .hero-section h1 {
+    font-size: 2.8rem;
+    line-height: 1.2;
+    margin-bottom: 1.5em;
+    padding: 0.3em 0.2em;
+    font-family: "Miama", serif;
+  }
+
+  .hero-section h2 {
+    font-size: 1.8rem;
+    margin: 2em auto 1.5em auto;
+    padding: 0.3em 0.4em;
+    font-family: "Miama", serif;
+  }
+
+  .cta-button {
+    font-size: 1.4rem;
+    padding: 0.8em;
+    margin: 1.5em auto;
+    max-width: 300px;
+    font-family: "Times Sans Serif", serif;
+  }
+
+  /* Hero Layout */
+  .hero-layout {
+    flex-direction: column;
+    gap: 1em;
+    margin-bottom: 4em;
+  }
+
+  /* Background Video */
+  .bg-video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  /* Sticky elements */
+  .sticky-discount,
+  .sticky-newsletter {
+    position: static;
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+  .sticky-discount aside,
+  .newsletter-aside {
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: rgba(0, 91, 11, 0.1);
+    margin: 0 1rem;
+  }
+
+  .discount-link {
+    font-size: 1rem;
+    line-height: 1.4;
+    font-family: "Times Sans Serif", serif;
+  }
+
+  /* Newsletter Form */
+  .newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .newsletter-label {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: bold;
+    font-family: "Times Sans Serif", serif;
+  }
+
+  .newsletter-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .newsletter-input {
+    padding: 0.8rem;
+    border: 2px solid #fee8a4;
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%;
+    font-family: "Times Sans Serif", serif;
+  }
+
+  .newsletter-button {
+    padding: 0.8rem 1.5rem;
+    background-color: #005b0b;
+    color: #fee8a4;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: "Times Sans Serif", serif;
+  }
+
+  .newsletter-button:hover {
+    background-color: #013106;
+  }
+
+  .logo-container {
+    width: 180px;
+    margin-bottom: 2em;
+  }
+
+  figcaption {
+    font-size: 1.8rem;
+    font-family: "Redressed", cursive;
+  }
+
+  figcaption:nth-child(2) {
+    font-size: 0.9rem;
+    font-family: "GFS Bodoni Rg", serif;
+  }
+
+  /* Overlay for mobile menu */
+  .nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Small Mobile Styles (up to 480px) */
+@media screen and (max-width: 480px) {
+  .hero-section h1 {
+    font-size: 2.2rem;
+    font-family: "Miama", serif;
+  }
+
+  .hero-section h2 {
+    font-size: 1.5rem;
+    font-family: "Miama", serif;
+  }
+
+  .nav-links {
+    width: 100%;
+    right: -100%;
+  }
+
+  .nav-links a {
+    font-size: 1.2rem;
+    font-family: "Times Sans Serif", serif;
+  }
+
+  .mobile-nav {
+    width: 100%;
+  }
+
+  .mobile-nav-links a {
+    font-size: 1.2rem;
+    padding: 1rem 1.5rem;
+  }
+
+  .cta-button {
+    font-size: 1.2rem;
+    padding: 0.7em;
+    font-family: "Times Sans Serif", serif;
+  }
+
+  .logo-container {
+    width: 160px;
+  }
+
+  figcaption {
+    font-size: 1.5rem;
+    font-family: "Redressed", cursive;
+  }
+
+  figcaption:nth-child(2) {
+    font-family: "GFS Bodoni Rg", serif;
+  }
+
+  .newsletter-fields {
+    gap: 0.6rem;
+  }
+
+  .sticky-discount aside,
+  .newsletter-aside {
+    margin: 0 0.5rem;
+    padding: 0.8rem;
+  }
+}
+
+/* Landscape Mobile Styles */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  .hero-section h1 {
+    font-size: 2rem;
+    margin-bottom: 1em;
+    font-family: "Miama", serif;
+  }
+
+  .hero-section h2 {
+    font-size: 1.4rem;
+    margin: 1em auto;
+    font-family: "Miama", serif;
+  }
+
+  .cta-button {
+    margin: 1em auto;
+    font-family: "Times Sans Serif", serif;
+  }
+
+  .hero-layout {
+    margin-bottom: 2em;
+  }
+
+  .logo-container {
+    margin-bottom: 1em;
+  }
+
+  .nav-links {
+    width: 250px;
+  }
+
+  .mobile-nav {
+    width: 250px;
   }
 }
 
