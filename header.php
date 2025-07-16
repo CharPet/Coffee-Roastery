@@ -13,33 +13,130 @@
         <img src="<?php echo get_template_directory_uri(); ?>/icons/basket_svgrepo.com.svg" alt="Basket" />
         <span id="basket-count">0</span>
     </div>
+
     <header>
-        <nav>
-            <ul class="nav-links">
+        <!-- Mobile menu toggle button -->
+        <button class="mobile-nav-toggle" aria-label="Toggle navigation menu">
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+
+        <!-- Left Navigation -->
+        <nav class="nav-left">
+            <ul class="nav-links nav-links-left">
                 <li><a href="/">Αρχική</a></li>
                 <li><a href="<?php echo get_permalink( get_page_by_path( 'products' ) ); ?>">Κατάλογος Προϊόντων</a>
                 </li>
                 <li><a href="<?php echo get_permalink( get_page_by_path( 'history' ) ); ?>">Η Ιστορία μας</a></li>
             </ul>
         </nav>
+
+        <!-- Logo Container -->
         <figure class="logo-container">
             <img class="logo" src="<?php echo get_template_directory_uri(); ?>/icons/terra coffee logo2 1.webp"
                 alt="Coffee Company Logo" width="128" height="128" />
             <div>
                 <figcaption>Terra Coffee</figcaption>
                 <figcaption>ΚΑΦΕΣ ΜΕ ΡΙΖΕΣ ΣΤΗ ΓΗ <br> — <br>ΚΑΦΕΚΟΠΤΕΙΟΝ </figcaption>
-                <!-- <figcaption>ΚΑΦΕΚΟΠΤΕΙΟΝ</figcaption> -->
-
             </div>
         </figure>
 
-        <nav>
-            <ul class="nav-links">
+        <!-- Right Navigation -->
+        <nav class="nav-right">
+            <ul class="nav-links nav-links-right">
+                <li><a href="<?php echo get_permalink( get_page_by_path( 'news' ) ); ?>">Τα Νέα μας</a></li>
+                <li><a href="<?php echo get_permalink( get_page_by_path( 'contact' ) ); ?>">Επικοινωνία</a></li>
+                <li><a href="<?php echo get_permalink( get_page_by_path( 'login' ) ); ?>">Εγγραφή / Είσοδος</a></li>
+            </ul>
+        </nav>
+
+        <!-- Mobile Navigation Menu (hidden by default) -->
+        <nav class="mobile-nav">
+            <ul class="nav-links mobile-nav-links">
+                <li><a href="/">Αρχική</a></li>
+                <li><a href="<?php echo get_permalink( get_page_by_path( 'products' ) ); ?>">Κατάλογος Προϊόντων</a>
+                </li>
+                <li><a href="<?php echo get_permalink( get_page_by_path( 'history' ) ); ?>">Η Ιστορία μας</a></li>
                 <li><a href="<?php echo get_permalink( get_page_by_path( 'news' ) ); ?>">Τα Νέα μας</a></li>
                 <li><a href="<?php echo get_permalink( get_page_by_path( 'contact' ) ); ?>">Επικοινωνία</a></li>
                 <li><a href="<?php echo get_permalink( get_page_by_path( 'login' ) ); ?>">Εγγραφή / Είσοδος</a></li>
             </ul>
         </nav>
     </header>
+
     <script src="./js/basket.js"></script>
+
+    <!-- Mobile Navigation JavaScript -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileToggle = document.querySelector('.mobile-nav-toggle');
+        const mobileNav = document.querySelector('.mobile-nav');
+        const mobileNavLinks = document.querySelector('.mobile-nav-links');
+        const hamburger = document.querySelector('.hamburger');
+
+        // Create overlay if it doesn't exist
+        let navOverlay = document.querySelector('.nav-overlay');
+        if (!navOverlay) {
+            navOverlay = document.createElement('div');
+            navOverlay.className = 'nav-overlay';
+            document.body.appendChild(navOverlay);
+        }
+
+        function toggleMobileMenu() {
+            const isActive = mobileNav.classList.contains('active');
+
+            if (isActive) {
+                // Close menu
+                mobileNav.classList.remove('active');
+                navOverlay.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            } else {
+                // Open menu
+                mobileNav.classList.add('active');
+                navOverlay.classList.add('active');
+                hamburger.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Toggle menu on button click
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', toggleMobileMenu);
+        }
+
+        // Close menu on overlay click
+        navOverlay.addEventListener('click', toggleMobileMenu);
+
+        // Close menu on nav link click
+        const navLinksItems = document.querySelectorAll('.mobile-nav-links a');
+        navLinksItems.forEach(link => {
+            link.addEventListener('click', function() {
+                if (mobileNav.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            });
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mobileNav.classList.contains('active')) {
+                toggleMobileMenu();
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 1024 && mobileNav.classList.contains('active')) {
+                mobileNav.classList.remove('active');
+                navOverlay.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    });
+    </script>
 </body>

@@ -21,7 +21,7 @@
                 <div class="sticky-discount">
                     <aside>
                         <a href="#" class="discount-link">
-                            Το Terra Coffee άνοιξε! Λάβε <u>κουπόνι</u> έκπτωσης 10% με την 1η
+                            Το <span>Terra Coffee</span> άνοιξε! Λάβε <u>κουπόνι</u> έκπτωσης 10% με την 1η
                             σου παραγγελία!
                         </a>
                     </aside>

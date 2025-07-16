@@ -10,7 +10,7 @@ get_header();
     // Show login form if user is not logged in
     if (!is_user_logged_in()) {
         wp_login_form([
-            'label_username' => 'Όνομα χρήστη ή Email',
+            'label_username' => 'Email',
             'label_password' => 'Κωδικός',
             'label_remember' => 'Να με θυμάσαι',
             'label_log_in'   => 'Είσοδος',
