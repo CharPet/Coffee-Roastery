@@ -112,3 +112,48 @@
   font-style: italic;
   font-display: swap;
 }
+
+@font-face {
+  font-family: "Linux Libertine";
+  src: url("LinLibertineI.woff2") format("woff2"),
+    url("LinLibertineI.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Linux Libertine";
+  src: url("LinLibertineBI.woff2") format("woff2"),
+    url("LinLibertineBI.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Linux Libertine";
+  src: url("LinLibertine.woff2") format("woff2"),
+    url("LinLibertine.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Linux Libertine";
+  src: url("LinLibertineB.woff2") format("woff2"),
+    url("LinLibertineB.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Linux Libertine C";
+  src: url("LinLibertineC.woff2") format("woff2"),
+    url("LinLibertineC.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

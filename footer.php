@@ -10,11 +10,13 @@
          </figure>
          <nav class="footer-nav">
              <ul class="footer-links">
-                 <li><a href="#products">Κατάλογος Προϊόντων</a></li>
-                 <li><a href="#history">Η Ιστορία μας</a></li>
-                 <li><a href="#news">Τα Νέα μας</a></li>
-                 <li><a href="#contact">Επικοινωνία</a></li>
-                 <li><a href="#login" class="login-link">Εγγραφή / Είσοδος</a></li>
+                 <li><a href="<?php echo get_permalink( get_page_by_path( 'products' ) ); ?>">Κατάλογος Προϊόντων</a>
+                 </li>
+                 <li><a href="<?php echo get_permalink( get_page_by_path( 'history' ) ); ?>">Η Ιστορία μας</a></li>
+                 <li><a href="<?php echo get_permalink( get_page_by_path( 'news' ) ); ?>">Τα Νέα μας</a></li>
+                 <li><a href="<?php echo get_permalink( get_page_by_path( 'contact' ) ); ?>">Επικοινωνία</a></li>
+                 <li><a href="<?php echo get_permalink( get_page_by_path( 'login' ) ); ?>" class="login-link">Εγγραφή /
+                         Είσοδος</a></li>
              </ul>
          </nav>
          <div class="socials">
