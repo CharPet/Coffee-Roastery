@@ -35,14 +35,16 @@
         </nav>
 
         <!-- Logo Container -->
-        <figure class="logo-container">
-            <img class="logo" src="<?php echo get_template_directory_uri(); ?>/icons/terra coffee logo2 1.webp"
-                alt="Coffee Company Logo" width="128" height="128" />
-            <div>
-                <figcaption>Terra Coffee</figcaption>
-                <figcaption>ΚΑΦΕΣ ΜΕ ΡΙΖΕΣ ΣΤΗ ΓΗ <br> — <br>ΚΑΦΕΚΟΠΤΕΙΟΝ </figcaption>
-            </div>
-        </figure>
+        <a href="/">
+            <figure class="logo-container">
+                <img class="logo" src="<?php echo get_template_directory_uri(); ?>/icons/terra coffee logo2 1.webp"
+                    alt="Coffee Company Logo" width="128" height="128" />
+                <div>
+                    <figcaption>Terra Coffee</figcaption>
+                    <figcaption>ΚΑΦΕΣ ΜΕ ΡΙΖΕΣ ΣΤΗ ΓΗ <br> — <br>ΚΑΦΕΚΟΠΤΕΙΟΝ </figcaption>
+                </div>
+            </figure>
+        </a>
 
         <!-- Right Navigation -->
         <nav class="nav-right">

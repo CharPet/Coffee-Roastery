@@ -1,13 +1,17 @@
  <footer>
      <div class="footer-part1">
+
          <figure class="logo-container-no-background">
-             <img class="logo" src="<?php echo get_template_directory_uri(); ?>/icons/terra coffee logo2 1.png"
-                 alt="Coffee Company Logo" width="80" height="80" />
-             <div>
-                 <figcaption>Terra Coffee</figcaption>
-                 <figcaption class="footer-figcaption">ΚΑΦΕΣ ΜΕ ΡΙΖΕΣ ΣΤΗ ΓΗ</figcaption>
-             </div>
+             <a href="/" id="footer-logo-link">
+                 <img class="logo" src="<?php echo get_template_directory_uri(); ?>/icons/terra coffee logo2 1.png"
+                     alt="Coffee Company Logo" width="80" height="80" />
+                 <div>
+                     <figcaption>Terra Coffee</figcaption>
+                     <figcaption class="footer-figcaption">ΚΑΦΕΣ ΜΕ ΡΙΖΕΣ ΣΤΗ ΓΗ</figcaption>
+                 </div>
+             </a>
          </figure>
+
          <nav class="footer-nav">
              <ul class="footer-links">
                  <li><a href="<?php echo get_permalink( get_page_by_path( 'products' ) ); ?>">Κατάλογος Προϊόντων</a>
