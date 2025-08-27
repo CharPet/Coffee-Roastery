@@ -67,6 +67,19 @@
                 <li><a href="<?php echo get_permalink( get_page_by_path( 'login' ) ); ?>">Εγγραφή / Είσοδος</a></li>
             </ul>
         </nav>
+
+        <!-- Basket modal (site-wide) -->
+        <div id="basket-modal" class="basket-modal" style="display:none;" aria-hidden="true">
+            <div class="basket-inner" role="dialog" aria-label="Το καλάθι σας">
+                <h3>Το καλάθι σας</h3>
+                <ul id="basket-list"></ul>
+                <div id="basket-total"></div>
+                <div class="basket-actions">
+                    <button id="buy-btn-modal">Αγορά</button>
+                    <button id="close-basket">Κλείσιμο</button>
+                </div>
+            </div>
+        </div>
     </header>
 
     <script src="./js/basket.js"></script>

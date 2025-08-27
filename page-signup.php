@@ -5,9 +5,9 @@ get_header();
 // Database functions integrated directly in the template
 function saveUserRegistrationData($user_id, $user_data) {
     // Use WordPress database constants
-    $host = DB_HOST;
-    $user = DB_USER;
-    $password = DB_PASSWORD;
+    $host = '127.0.0.1';
+    $user = 'root';
+    $password = 'root';
     $database = 'local_kafekopteio4_userdata'; // Your user data database
     
     $conn = new mysqli($host, $user, $password, $database);
