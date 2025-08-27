@@ -3,7 +3,7 @@
 
          <figure class="logo-container-no-background">
              <a href="/" id="footer-logo-link">
-                 <img class="logo" src="<?php echo get_template_directory_uri(); ?>/icons/terra coffee logo2 1.png"
+                 <img class="logo" src="<?php echo get_template_directory_uri(); ?>/icons/terra coffee logo2 1.webp"
                      alt="Coffee Company Logo" width="80" height="80" />
                  <div>
                      <figcaption>Terra Coffee</figcaption>
