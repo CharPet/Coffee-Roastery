@@ -26,7 +26,7 @@ get_header();
      </div>
 
      <img class="our-history-img"
-         src="<?php echo get_template_directory_uri(); ?>/images/3/homniom-coffee-5c0jJvLQz70-unsplash.jpg" alt="" />
+         src="<?php echo get_template_directory_uri(); ?>/images/homniom-coffee-5c0jJvLQz70-unsplash.jpg" alt="" />
  </main>
 
  <?php get_footer(); ?>

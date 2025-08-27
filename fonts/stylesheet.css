@@ -9,60 +9,6 @@
 
 @font-face {
   font-family: "GFS Bodoni Rg";
-  src: url("GFSBodoni-Bold.woff2") format("woff2"),
-    url("GFSBodoni-Bold.woff") format("woff");
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "GFS Bodoni Rg";
-  src: url("GFSBodoni-BoldItalic.woff2") format("woff2"),
-    url("GFSBodoni-BoldItalic.woff") format("woff");
-  font-weight: bold;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "GFS Bodoni Rg";
-  src: url("GFSBodoni-Bold.woff2") format("woff2"),
-    url("GFSBodoni-Bold.woff") format("woff");
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "GFS Bodoni Rg";
-  src: url("GFSBodoni-BoldItalic.woff2") format("woff2"),
-    url("GFSBodoni-BoldItalic.woff") format("woff");
-  font-weight: bold;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "GFS Bodoni Rg";
-  src: url("GFSBodoni-Italic.woff2") format("woff2"),
-    url("GFSBodoni-Italic.woff") format("woff");
-  font-weight: normal;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "GFS Bodoni Rg";
-  src: url("GFSBodoni-Italic.woff2") format("woff2"),
-    url("GFSBodoni-Italic.woff") format("woff");
-  font-weight: normal;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "GFS Bodoni Rg";
   src: url("GFSBodoni-Regular.woff2") format("woff2"),
     url("GFSBodoni-Regular.woff") format("woff");
   font-weight: normal;
@@ -76,32 +22,6 @@
     url("GFSBodoni-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "GFS BodoniClassic";
-  src: url("GFSBodoniClassic-Regular.woff2") format("woff2"),
-    url("GFSBodoniClassic-Regular.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Times Sans Serif";
-  src: url("TimesSansSerif.woff2") format("woff2"),
-    url("TimesSansSerif.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Miama";
-  src: url("Miama.woff2") format("woff2"), url("Miama.woff") format("woff");
-  font-weight: normal;
-  font-style: italic;
   font-display: swap;
 }
 

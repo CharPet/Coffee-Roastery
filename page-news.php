@@ -10,7 +10,7 @@ get_header();
     </div>
 
     <div>
-        <img src="<?php echo get_template_directory_uri(); ?>/images/4/ru5fdis1oqjorf0hieyq.webp" alt="" />
+        <img src="<?php echo get_template_directory_uri(); ?>/images/ru5fdis1oqjorf0hieyq.webp" alt="" />
     </div>
 
     <div>
@@ -38,7 +38,7 @@ get_header();
     </div>
 
     <div>
-        <img src="<?php echo get_template_directory_uri(); ?>/images/4/zvrikkavccn3xs390k0e.webp" alt="" />
+        <img src="<?php echo get_template_directory_uri(); ?>/images/zvrikkavccn3xs390k0e.webp" alt="" />
     </div>
 
     <div>
