@@ -2,47 +2,53 @@
 /* Template Name: signup */
 get_header();
 
+// Enable debugging
+// define('WP_DEBUG', true);
+// define('WP_DEBUG_LOG', true);
+// define('WP_DEBUG_DISPLAY', false);
+
 // Database functions integrated directly in the template
 function saveUserRegistrationData($user_id, $user_data) {
-    // Use WordPress database constants
-    $host = '127.0.0.1';
-    $user = 'root';
-    $password = 'root';
-    $database = 'local_kafekopteio4_userdata'; // Your user data database
+    global $wpdb;
+    $table = $wpdb->prefix . 'user_registrations';
     
-    $conn = new mysqli($host, $user, $password, $database);
-    
-    if ($conn->connect_error) {
-        error_log("Connection failed: " . $conn->connect_error);
+    // Debug table existence
+    $table_exists = $wpdb->get_var("SHOW TABLES LIKE '$table'");
+    if (!$table_exists) {
+        error_log("Table $table does not exist!");
         return false;
     }
-    
-    $stmt = $conn->prepare("INSERT INTO wp_user_registrations (user_id, username, email, first_name, last_name, place, zip, address, newsletter_subscribed, registration_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())");
-    
-    $newsletter = isset($user_data['newsletter']) ? 1 : 0;
-    
-    $stmt->bind_param("issssssi", 
-        $user_id,
-        $user_data['username'],
-        $user_data['email'],
-        $user_data['first_name'],
-        $user_data['last_name'],
-        $user_data['place'],
-        $user_data['zip'],
-        $user_data['address'],
-        $newsletter
+
+    // Debug log the data being inserted
+    error_log('Attempting to insert user data: ' . print_r([
+        'user_id' => $user_id,
+        'username' => $user_data['username'],
+        'table' => $table
+    ], true));
+
+    $result = $wpdb->insert(
+        $table,
+        array(
+            'user_id' => $user_id,
+            'username' => $user_data['username'],
+            'email' => $user_data['email'],
+            'first_name' => $user_data['first_name'],
+            'last_name' => $user_data['last_name'],
+            'place' => $user_data['place'],
+            'zip' => $user_data['zip'],
+            'address' => $user_data['address'],
+            'newsletter_subscribed' => isset($user_data['newsletter']) ? 1 : 0
+        ),
+        array('%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d')
     );
-    
-    $result = $stmt->execute();
-    
-    if (!$result) {
-        error_log("Error saving user registration: " . $stmt->error);
+
+    if ($result === false) {
+        // Log the actual MySQL error
+        error_log('Database error details: ' . $wpdb->last_error);
+        error_log('Last SQL query: ' . $wpdb->last_query);
+        return false;
     }
-    
-    $stmt->close();
-    $conn->close();
-    
-    return $result;
+    return true;
 }
 
 // Handle form submission
@@ -128,15 +134,15 @@ if (isset($_POST['signup_submit']) && $_POST['signup_submit']) {
             
             $db_saved = saveUserRegistrationData($user_id, $registration_data);
             
-            if ($db_saved) {
+            if (!$db_saved) {
+                error_log('Failed to save user registration data for user_id: ' . $user_id);
+                $errors[] = 'Database error during registration.';
+            } else {
                 // Auto login after registration
                 wp_set_current_user($user_id);
                 wp_set_auth_cookie($user_id);
                 
                 $success_message = 'Η εγγραφή σας ολοκληρώθηκε επιτυχώς! Καλώς ήρθατε!';
-            } else {
-                // User was created but additional data wasn't saved
-                $errors[] = 'Ο λογαριασμός δημιουργήθηκε αλλά υπήρξε πρόβλημα με την αποθήκευση των επιπλέον στοιχείων.';
             }
         } else {
             $errors[] = 'Σφάλμα κατά την εγγραφή: ' . $user_id->get_error_message();
@@ -182,6 +188,8 @@ if (isset($_POST['signup_submit']) && $_POST['signup_submit']) {
                 <?php endif; ?>
 
                 <form method="post" id="signup-form">
+                    <?php wp_nonce_field('register_nonce', 'nonce'); ?>
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="first_name">Όνομα:</label>
@@ -257,7 +265,7 @@ if (isset($_POST['signup_submit']) && $_POST['signup_submit']) {
                         </label>
                     </div>
 
-                    <button type="submit" name="signup_submit" class="signup-button">
+                    <button type="submit" name="signup_submit" class="signup-button" value="1">
                         Εγγραφή
                     </button>
                 </form>
@@ -271,19 +279,11 @@ if (isset($_POST['signup_submit']) && $_POST['signup_submit']) {
             </div>
         </div>
 
-        <!-- Coffee beans decoration -->
-        <!-- <div class="coffee-beans">
-            <div class="bean bean-1"></div>
-            <div class="bean bean-2"></div>
-            <div class="bean bean-3"></div>
-            <div class="bean bean-4"></div>
-            <div class="bean bean-5"></div>
-            <div class="bean bean-6"></div>
-        </div> -->
+
     </div>
 </main>
 
-<!-- <script>
+<script>
 // Password strength indicator
 document.getElementById('password').addEventListener('input', function() {
     const password = this.value;
@@ -308,6 +308,6 @@ document.getElementById('confirm_password').addEventListener('input', function()
         this.style.borderColor = '#dc3545';
     }
 });
-</script> -->
+</script>
 
 <?php get_footer(); ?>

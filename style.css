@@ -7,14 +7,6 @@ Version: 1.0
 /* Reset and Base Styles */
 
 /* Font Declarations - Move these to the top of your main CSS file */
-@font-face {
-  font-family: "Times Sans Serif";
-  src: url("./fonts/TimesSansSerif.woff2") format("woff2"),
-    url("./fonts/TimesSansSerif.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
 
 @font-face {
   font-family: "Redressed";
@@ -110,6 +102,21 @@ body {
 }
 
 header {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between;
+  align-items: center; */
+}
+
+.header-part1 {
+  width: 100%;
+  position: fixed;
+  z-index: 10;
+  background-color: transparent;
+  /* border: 1px solid #fee8a4; */
+}
+
+.header-part2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -212,7 +219,7 @@ figcaption:nth-child(2) {
   display: inline-block;
   color: #fee8a4;
   text-decoration: none;
-  padding: 0.5em 1em;
+  padding: 0.5em 0.2em;
   border-radius: 8px;
   transition: background-color 0.3s ease;
   font-size: 1.8rem;
@@ -226,6 +233,7 @@ figcaption:nth-child(2) {
 
 .nav-links a:hover {
   background-color: rgba(0, 91, 11, 0.7);
+  color: #f9f4f2;
 }
 
 /* Index */
@@ -284,7 +292,7 @@ figcaption:nth-child(2) {
   padding: 0.4em 0.8em;
   border-radius: 12px;
   cursor: pointer;
-  font-family: "times sans serif";
+  font-family: "Linux Libertine";
   font-weight: normal;
   transition: background-color 0.8s ease;
   margin: 2em 1em 2em;
@@ -398,7 +406,7 @@ aside {
   color: #150700;
   padding: 1em;
   border-radius: 12px;
-  font-family: "Times Sans Serif";
+  font-family: "Linux Libertine";
   text-align: center;
   text-decoration: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -477,7 +485,7 @@ form {
 }
 
 #newsletter-email {
-  font-family: "Times Sans Serif";
+  font-family: "Linux Libertine";
   width: 90%;
   height: 2em;
   margin-bottom: 0.6em;
@@ -814,10 +822,10 @@ form {
 }
 
 #basket-icon {
-  position: fixed;
+  /* position: fixed;
   top: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 1000; */
   cursor: pointer;
   background: #b50000;
   padding: 0.7em;
@@ -2012,13 +2020,22 @@ footer {
     margin-top: 0;
     grid-template-columns: 1fr;
   }
-
+  /* 
   #basket-icon {
     padding: 0.2em;
-    position: fixed;
+    position: absolute;
     top: 1em;
     right: 0.2em;
     border: 2px solid #150700;
+  } */
+
+  .top-bar-menu-left {
+    /* padding: 0.2em; */
+    position: absolute;
+    top: 1.4em;
+  }
+  .mobile-nav-toggle {
+    margin-left: 0.2em;
   }
 
   #basket-list {
@@ -2130,9 +2147,10 @@ img {
   cursor: pointer;
   padding: 0.5rem;
   z-index: 1001;
-  position: fixed;
+  /* position: fixed;
   top: 1rem;
-  left: 1rem;
+  left: 1rem; */
+  margin-left: 1em;
 }
 
 .mobile-nav-toggle:focus {
@@ -2202,7 +2220,7 @@ img {
   display: block;
   border-bottom: 1px solid rgba(254, 232, 164, 0.2);
   transition: background-color 0.3s ease;
-  font-family: "Times Sans Serif", serif;
+  font-family: "Linux Libertine", serif;
   font-size: 1.4rem;
 }
 
@@ -2719,7 +2737,7 @@ img {
 
   .nav-links a {
     font-size: 1.6rem;
-    font-family: "Times Sans Serif", serif;
+    font-family: "Linux Libertine", serif;
   }
 
   .hero-layout {
@@ -2742,7 +2760,7 @@ img {
   }
 
   .cta-button {
-    font-family: "Times Sans Serif", serif;
+    font-family: "Linux Libertine", serif;
   }
 
   /* Show mobile menu for tablets */
@@ -2807,7 +2825,7 @@ img {
 @media screen and (max-width: 768px) {
   body {
     font-size: 0.9rem;
-    font-family: "Times Sans Serif", serif;
+    font-family: "Linux Libertine", serif;
   }
 
   /* Header and Navigation */
@@ -2866,7 +2884,7 @@ img {
     padding: 0.8em;
     margin: 1.5em auto;
     max-width: 300px;
-    font-family: "Times Sans Serif", serif;
+    font-family: "Linux Libertine", serif;
   }
 
   /* Hero Layout */
@@ -2903,7 +2921,7 @@ img {
   .discount-link {
     font-size: 1.4rem;
     line-height: 1.4;
-    font-family: "Times Sans Serif", serif;
+    font-family: "Linux Libertine", serif;
   }
 
   /* Newsletter Form */
@@ -2932,7 +2950,7 @@ img {
     border-radius: 8px;
     font-size: 1rem;
     width: 100%;
-    font-family: "Times Sans Serif", serif;
+    font-family: "Linux Libertine", serif;
   }
 
   .newsletter-button {
@@ -2944,7 +2962,7 @@ img {
     font-size: 1.1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-family: "Times Sans Serif", serif;
+    font-family: "Linux Libertine", serif;
   }
 
   .newsletter-button:hover {
@@ -3028,7 +3046,7 @@ img {
 
   .nav-links a {
     font-size: 1.2rem;
-    font-family: "Times Sans Serif", serif;
+    font-family: "Linux Libertine", serif;
   }
 
   .mobile-nav {
@@ -3043,7 +3061,7 @@ img {
   .cta-button {
     font-size: 1.2rem;
     padding: 0.7em;
-    font-family: "Times Sans Serif", serif;
+    font-family: "Linux Libertine", serif;
   }
 
   .logo-container {
@@ -3092,6 +3110,18 @@ img {
   .single .single-article-title {
     text-align: center;
   }
+
+  #basket-icon {
+    padding: 0.2em;
+    position: absolute;
+    top: 1em;
+    right: 0.2em;
+    border: 2px solid #150700;
+  }
+
+  .header-part1 {
+    position: absolute;
+  }
 }
 
 /* Landscape Mobile Styles */
@@ -3110,7 +3140,7 @@ img {
 
   .cta-button {
     margin: 1em auto;
-    font-family: "Times Sans Serif", serif;
+    font-family: "Linux Libertine", serif;
   }
 
   .hero-layout {
@@ -3154,4 +3184,38 @@ img {
   width: 100%;
   height: 100vh;
   max-width: 100%;
+}
+
+.user-welcome {
+  font-size: 1rem;
+  color: #f9f4f2;
+  padding: 0.5em 1em;
+  margin-right: 1em;
+  background: #005b0b;
+
+  /* position: absolute;
+  top: 0;
+  left: 0;
+   */
+}
+
+/* Adjust nav-left to accommodate welcome message */
+/* .nav-left {
+    display: flex;
+    align-items: center;
+} */
+
+.top-bar {
+  width: 100%;
+}
+
+.top-bar-menu {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-bar-menu-left {
+  display: flex;
 }

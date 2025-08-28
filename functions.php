@@ -7,20 +7,16 @@ add_action('wp_enqueue_scripts', 'kafekopteio_enqueue_styles');
 // ...existing code...
 
 // filepath: c:\Users\petir\Local Sites\kafekopteio4\app\public\wp-content\themes\kafekopteio\functions.php
-function terra_coffee_enqueue_scripts() {
+function terra_enqueue_scripts() {
     wp_enqueue_script(
-        'basket-js',
-        get_template_directory_uri() . '/js/basket.js',
-        array(), // dependencies
-        null,
-        true // load in footer
+        'terra-basket', 
+        get_template_directory_uri() . '/js/basket.js', 
+        array(), 
+        '1.0.0', 
+        true
     );
-
-        wp_localize_script('basket-js', 'ajaxurl', array(
-        'ajaxurl' => admin_url('admin-ajax.php')
-    ));
 }
-add_action('wp_enqueue_scripts', 'terra_coffee_enqueue_scripts');
+add_action('wp_enqueue_scripts', 'terra_enqueue_scripts');
 
 add_action('wp_ajax_submit_order', 'handle_order_submission');
 add_action('wp_ajax_nopriv_submit_order', 'handle_order_submission');
