@@ -13,7 +13,7 @@
 
     <header>
         <!-- Mobile menu toggle button -->
-        <div class="header-part1">
+        <div class="header-bar">
             <div class="top-bar">
                 <div class="top-bar-menu">
                     <div class="top-bar-menu-left">
@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <div class="header-part2">
+        <div class="header-nav">
             <!-- Left Navigation -->
             <nav class="nav-left">
                 <ul class="nav-links nav-links-left">

@@ -20,8 +20,8 @@ get_header();
         <div class="product-card" data-name="Single Origin – Αιθιοπία" data-price="12.00">
             <img src="<?php echo get_template_directory_uri(); ?>/images/pzoswjy6kagrtcp0n4ri.webp" alt="Product 2" />
             <h3 class="product-name">Single Origin – Αιθιοπία</h3>
-            <p class="product-desc">Καφές από την καρδιά της Αφρικής, με αρώματα γιασεμιού, νότες εσπεριδοειδών και μία
-                κομψή, φρουτώδη οξύτητα.</p>
+            <p class="product-desc">Καφές από την καρδιά της Αφρικής, με εκλεπτυσμένα αρώματα γιασεμιού, νότες ζουμερών
+                εσπεριδοειδών και μία κομψή, φρουτώδη οξύτητα που χαρίζει φρεσκάδα.</p>
             <span class="product-price">€12.00</span>
             <br>
             <button class="buy-btn">Στο Καλάθι</button>
@@ -30,7 +30,7 @@ get_header();
             <img src="<?php echo get_template_directory_uri(); ?>/images/pzoswjy6kagrtcp0n4ri.webp" alt="Product 3" />
             <h3 class="product-name">Blend Terra – Υπογραφή Καβουρδίσματος</h3>
             <p class="product-desc">Η υπογραφή του Terra Coffee: επιλεγμένες ποικιλίες από Κεντρική και Νότια Αμερική,
-                σε αρμονικό χαρμάνι με σοκολατένια επίγευση..</p>
+                σε αρμονικό χαρμάνι με σοκολατένια επίγευση.</p>
             <span class="product-price">€9.00</span>
             <br>
             <button class="buy-btn">Στο Καλάθι</button>

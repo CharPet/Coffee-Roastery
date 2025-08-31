@@ -87,14 +87,8 @@ a {
 
 body {
   font-size: 1rem;
-  line-height: 1.7;
   font-family: "Linux Libertine";
-  src: url("LinLibertine.woff") format("woff"),
-    url("LinLibertine.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-  color: #333;
+  color: #150700;
   line-height: 1.6;
   background: linear-gradient(135deg, #ffe066 0%, #efca6e 50%, #ffe066 100%);
   position: relative;
@@ -104,27 +98,22 @@ body {
 header {
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between;
-  align-items: center; */
 }
 
-.header-part1 {
+.header-bar {
   width: 100%;
   position: fixed;
   z-index: 10;
   background-color: transparent;
-  /* border: 1px solid #fee8a4; */
 }
 
-.header-part2 {
+.header-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .logo-container {
-  display: flex;
-  flex-direction: column;
   width: 232px;
   height: auto;
   background: linear-gradient(180deg, #005b0b, #013106);
@@ -133,10 +122,10 @@ header {
   justify-content: center;
   align-items: center;
   gap: 2em;
-  z-index: 10;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   margin-bottom: 4em;
   position: relative;
+  z-index: 10;
   border-left: 1px solid #fee8a4;
   border-bottom: 1px solid #fee8a4;
   border-right: 1px solid #fee8a4;
@@ -145,11 +134,9 @@ header {
 /* Nav */
 nav {
   color: #fee8a4;
-  padding: 0.5em 2em;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
   border-bottom: 4px double #fee8a4;
 }
 
@@ -158,19 +145,14 @@ nav {
   overflow: hidden;
 }
 
-#logo {
+/* #logo {
   margin-top: 2em;
   width: 100%;
   height: auto;
-}
+} */
 
 figcaption {
   font-family: "Redressed";
-  src: url("Redressed-Regular.woff2") format("woff2"),
-    url("Redressed-Regular.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
   text-align: center;
   font-size: 2.4rem;
   color: #fee8a4;
@@ -179,11 +161,6 @@ figcaption {
 
 figcaption:nth-child(2) {
   font-family: "GFS Bodoni Rg";
-  src: url("GFSBodoni-Regular.woff2") format("woff2"),
-    url("GFSBodoni-Regular.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
   font-size: 1rem;
   margin: 0 auto;
   margin-bottom: 1em;
@@ -197,38 +174,30 @@ figcaption:nth-child(2) {
   margin-top: 1em;
 }
 
-/* .up-down-divider {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-} */
-
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 2em;
-  align-items: center;
-  flex-grow: 1;
   justify-content: center;
+  align-items: center;
+  gap: 1em;
+  flex-grow: 1;
   font-family: "Linux Libertine";
   overflow: hidden;
+  margin: 0 1em;
 }
 
 .nav-links a {
   display: inline-block;
   color: #fee8a4;
   text-decoration: none;
-  padding: 0.5em 0.2em;
+  padding: 0.4em 0.8em;
   border-radius: 8px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.8s ease;
+  font-family: "Linux Libertine";
   font-size: 1.8rem;
   font-size: clamp(0.9rem, 1.6vw, 1.8rem);
   white-space: nowrap;
-  line-height: 1.1;
-  font-family: "Linux Libertine";
-  src: url("LinLibertine.woff") format("woff"),
-    url("LinLibertine.woff2") format("woff2");
+  line-height: 1.2;
 }
 
 .nav-links a:hover {
@@ -238,18 +207,16 @@ figcaption:nth-child(2) {
 
 /* Index */
 .hero-section {
-  position: relative;
-  text-align: center;
-  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .hero-layout {
   display: flex;
-  gap: 2em;
+  gap: 4em;
   margin-bottom: 8em;
 }
 
@@ -263,39 +230,27 @@ figcaption:nth-child(2) {
 
 .hero-section h1 {
   font-family: "Miama";
-  src: url("Miama.woff2") format("woff2"), url("Miama.woff") format("woff");
   font-weight: normal;
   font-style: italic;
-  font-display: swap;
   font-size: 5rem;
+  font-size: clamp(2rem, 4.8vw, 5rem);
   color: #f9f4f2;
-  line-height: 1.1;
+  line-height: 1.2;
   padding: 0.4em 0.4em;
+  margin-top: 1em;
   margin-bottom: 1em;
+  word-wrap: normal;
 }
 
-/* 
-.hero-section h2 {
-  font-family: "Miama";
-  font-size: 2.8rem;
-  color: #f9f4f2;
-  font-weight: normal;
-  margin: 4em auto 2em auto;
-  padding: 0.4em 0.6em;
-  max-width: 1200px;
-} */
-
 .cta-button {
-  display: inline-block;
   background: linear-gradient(180deg, #005b0b, #013106);
   font-size: 1.8rem;
   padding: 0.4em 0.8em;
   border-radius: 12px;
   cursor: pointer;
   font-family: "Linux Libertine";
-  font-weight: normal;
   transition: background-color 0.8s ease;
-  margin: 2em 1em 2em;
+  margin: 2em 1em;
   color: #f9f4f2;
   text-decoration: none;
   text-align: center;
@@ -304,10 +259,8 @@ figcaption:nth-child(2) {
 
 .cta-button:hover {
   background: linear-gradient(180deg, #013106, #005b0b);
-  color: #f9f4f2;
 }
 
-/* Testimonials Slideshow Styles */
 .testimonials-slideshow {
   position: relative;
   max-width: 1900px;
@@ -340,7 +293,6 @@ figcaption:nth-child(2) {
   color: #f9f4f2;
   font-style: italic;
   margin-bottom: 15px;
-  /* text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8); */
 }
 
 .testimonial-author {
@@ -349,7 +301,6 @@ figcaption:nth-child(2) {
   font-size: 1.4em;
 }
 
-/* Slideshow dots */
 .slideshow-dots {
   text-align: center;
   margin-top: 20px;
@@ -360,7 +311,7 @@ figcaption:nth-child(2) {
   height: 12px;
   width: 12px;
   margin: 0 5px;
-  background-color: #f9f4f2;
+  background-color: #fee8a4;
   border-radius: 50%;
   display: inline-block;
   transition: background-color 0.3s ease;
@@ -371,10 +322,6 @@ figcaption:nth-child(2) {
 .dot:hover {
   background-color: #005b0b;
 }
-
-/* img {
-  max-inline-size: 100%;
-} */
 
 .bg-video {
   position: fixed;
@@ -388,20 +335,15 @@ figcaption:nth-child(2) {
 }
 
 aside {
-  flex: 0 0 auto;
-  min-width: 0;
   max-width: 260px;
   display: flex;
   align-items: flex-start;
-  margin-right: 0;
+  flex: 0 0 auto;
 }
 
 .discount-link {
   width: 100%;
   min-height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   display: block;
   color: #150700;
   padding: 1em;
@@ -410,13 +352,11 @@ aside {
   text-align: center;
   text-decoration: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  margin-top: 2rem;
+  margin-top: 2em;
   font-size: 1.4rem;
   font-weight: normal;
-  /* border: 2px solid #ffe066; */
   background: linear-gradient(180deg, #fee8a4, #efca6e);
   height: auto;
-  align-self: flex-start;
   border: 2px solid #005b0b;
 
   .sticky-discount {
@@ -461,7 +401,7 @@ aside {
 
 aside,
 .newsletter-aside {
-  top: 2rem;
+  top: 2em;
   z-index: 10;
   height: 200px;
 }
@@ -470,7 +410,6 @@ form {
   background: linear-gradient(180deg, #fee8a4, #efca6e);
   border-radius: 12px;
   padding: 1.5rem;
-  /* border: 2px solid #ffe066; */
   color: #150700;
   font-size: 1.2rem;
   margin-top: 1.5em;
@@ -501,57 +440,11 @@ form {
   color: #150700;
 }
 
-/* .single .single-article {
-  max-width: 90%;
-  margin: 4em auto 8em auto;
-  padding: 2em;
-  background: #fee8a4;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
-}
-
-.single .single-article-title {
-  font-size: 2.5rem;
-  margin-bottom: 1.5em;
-  color: #150700;
-  text-align: left;
-  padding-left: 1em;
-  margin-top: 1em;
-}
-
-.single .single-article-image {
-  display: block;
-  margin: 2em auto;
-  max-width: 100%;
-  border-radius: 24px;
-  border: 4px solid #f9f4f2;
-}
-
-.wp-block-image img {
-  box-sizing: border-box;
-  height: auto;
-  max-width: 100%;
-  vertical-align: bottom;
-  border: 4px solid #f9f4f2;
-}
-
-.single .single-article-content {
-  font-size: 1.3rem;
-  color: #150700;
-  margin: 2em;
-  margin-top: 4em;
-  line-height: 1.7;
-} */
-
-/* /////////////////// */
-
-/* Main container */
 .single-main {
   min-height: 100vh;
   padding: 2rem 0;
 }
 
-/* Article container */
 .single .single-article {
   max-width: 1200px;
   margin: 4em auto 4em auto;
@@ -572,19 +465,15 @@ form {
   background: linear-gradient(90deg, #fee8a4, #f4d03f, #fee8a4);
 }
 
-/* Article header */
 .article-header {
-  padding: 3rem 3rem 2rem 3rem;
+  padding: 3em 3em 2em 3em;
   background: linear-gradient(135deg, #fee8a4 0%, #f8e794 100%);
   position: relative;
-  /* display: flex;
-  justify-content: space-around;
-  align-items: center; */
 }
 
 .single .single-article-title {
   font-size: clamp(1.2rem, 4vw, 2rem);
-  margin: 0 0 1rem 0;
+  margin: 0 0 1em 0;
   color: #150700;
   font-weight: 700;
   line-height: 1.2;
@@ -593,11 +482,12 @@ form {
 
 .article-meta {
   display: flex;
-  gap: 1.5rem;
+  gap: 1.8em;
   align-items: center;
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: #5d4e37;
-  margin-bottom: 1rem;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .article-date,
@@ -609,7 +499,6 @@ form {
   backdrop-filter: blur(10px);
 }
 
-/* Image container */
 .article-image-container {
   padding: 0 3rem;
   margin: -2rem 0 3rem 0;
@@ -625,11 +514,6 @@ form {
   border: 3px solid #ffffff;
 }
 
-/* .single .single-article-image:hover {
-  transform: translateY(-2px);
-} */
-
-/* Content area */
 .single .single-article-content {
   padding: 0 3rem 3rem 3rem;
   font-size: 1.125rem;
@@ -664,7 +548,6 @@ form {
   font-size: 1.25rem;
 }
 
-/* Block images within content */
 .wp-block-image img {
   box-sizing: border-box;
   height: auto;
@@ -676,7 +559,6 @@ form {
   margin: 1.5rem 0;
 }
 
-/* Article footer */
 .article-footer {
   padding: 2rem 3rem 3rem 3rem;
   border-top: 1px solid #f0f0f0;
@@ -714,7 +596,6 @@ form {
 .article-categories a:hover,
 .article-tags a:hover {
   background: #f4d03f;
-  /* transform: translateY(-1px); */
 }
 
 /* No content state */
@@ -741,6 +622,23 @@ form {
 }
 
 /* PRODUCTS */
+
+#product-search {
+  font-size: 1.4rem;
+  padding: 0.5em;
+  width: 100%;
+  max-width: 400px;
+  margin: 1em auto;
+  display: block;
+  border: 2px solid #fafafa;
+  border-radius: 8px;
+  margin: 4em auto;
+}
+
+#product-search:focus {
+  outline: none;
+  border-color: #005b0b;
+}
 
 .page-id-49 .nav-links li a {
   color: #150700;
@@ -788,31 +686,42 @@ form {
 }
 
 .product-name {
+  font-family: "Linux Libertine";
   font-size: 1.6rem;
   margin: 0.5em 0;
   color: #150700;
 }
 
 .product-desc {
-  font-size: 1.2rem;
-  margin: 0 0.6em;
+  font-size: 1.3rem;
+  margin: 1em 2.6em;
   margin-bottom: 1em;
-  color: #333;
+  color: #150700;
+  text-align: left;
+  border: 6px double #150700;
+  padding: 0.2em 0.4em;
+}
+
+.product-desc::first-letter {
+  font-family: "Linux Libertine Bold";
+  font-size: 180%;
 }
 
 .product-price {
-  font-weight: normal;
-  color: #005b0b;
-  font-size: 1.4rem;
+  font-family: "Linux Libertine Bold";
+  font-size: 1.8rem;
+  margin-top: 1em;
 }
 
 .buy-btn {
   width: 12em;
   height: 2em;
   margin-top: 2em;
+  margin-bottom: 2em;
+  font-family: "Linux Libertine";
   background: linear-gradient(180deg, #005b0b, #013106);
   color: #f9f4f2;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   cursor: pointer;
   border-radius: 6px;
 }
@@ -822,10 +731,6 @@ form {
 }
 
 #basket-icon {
-  /* position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 1000; */
   cursor: pointer;
   background: #b50000;
   padding: 0.7em;
@@ -847,7 +752,7 @@ form {
   padding: 0.2em 0.6em;
   margin-left: 0.5em;
   margin-top: 0.2em;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 #basket-modal {
   position: fixed;
@@ -877,11 +782,13 @@ form {
 }
 
 #buy-btn-modal {
+  background: linear-gradient(180deg, #005b0b, #013106);
   margin-top: 1em;
   border: none;
   padding: 0.5em 1em;
   border-radius: 8px;
   cursor: pointer;
+  color: #f9f4f2;
 }
 #close-basket {
   margin-top: 1em;
@@ -899,18 +806,6 @@ form {
   color: red;
   cursor: pointer;
   font-size: 1em;
-}
-
-#product-search {
-  font-size: 1.4rem;
-  padding: 0.5em;
-  width: 100%;
-  max-width: 400px;
-  margin: 1em auto;
-  display: block;
-  border: 2px solid #fafafa;
-  border-radius: 8px;
-  margin: 4em auto;
 }
 
 /* OUR HISTORY */
@@ -960,44 +855,11 @@ form {
   width: 100%;
   height: 100%;
   max-width: 600px;
-  border: 6px solid #f9f4f2;
-}
-
-.page-id-7 .logo-container img {
-  border: none;
-  width: 55%;
-  object-fit: contain;
-}
-
-.page-id-7 .logo-container-no-background img {
-  width: 55%;
-  border: none;
-  height: auto;
-  margin: 1em auto 0 auto;
+  border: 4px solid #f9f4f2;
+  border-radius: 4px;
 }
 
 /* OUR NEWS */
-
-/* body.page-id-10 {
-  --s: 70px;
-  --c1: rgba(125, 59, 23, 0.7);
-  --c2: rgba(198, 158, 39, 0.5);
-
-  --_l: #0000 46%, var(--c1) 47% 53%, #0000 54%;
-  background: radial-gradient(100% 100% at 100% 100%, var(--_l)) var(--s)
-      var(--s),
-    radial-gradient(100% 100% at 0 0, var(--_l)) var(--s) var(--s),
-    radial-gradient(
-      100% 100%,
-      #0000 22%,
-      var(--c1) 23% 29%,
-      #0000 30% 34%,
-      var(--c1) 35% 41%,
-      #0000 42%
-    ),
-    var(--c2);
-  background-size: calc(var(--s) * 2) calc(var(--s) * 2);
-} */
 
 .page-id-10 header {
   border: none;
@@ -1400,7 +1262,7 @@ body .is-layout-flex {
 }
 
 .logged-in-message h3 {
-  color: #2c1810;
+  color: #150700;
   margin-bottom: 0.5rem;
 }
 
@@ -1504,18 +1366,6 @@ body .is-layout-flex {
   border-radius: 6px;
   border: 1px solid #ccc;
   box-sizing: border-box;
-}
-
-.page-id-44 button {
-  width: 100%;
-  height: 2em;
-  background: linear-gradient(180deg, #005b0b, #013106);
-  color: #f9f4f2;
-  font-size: 1.4rem;
-  cursor: pointer;
-  margin-top: 1.4em;
-  border-radius: 12px;
-  margin-bottom: 1.6em;
 }
 
 .page-id-44 button:hover {
@@ -2009,7 +1859,16 @@ footer {
 
   .products-grid {
     grid-template-columns: 1fr;
-    max-width: 90%;
+    /* max-width: 90%; */
+  }
+
+  .page-id-7 .our-history-title {
+    text-align: center;
+  }
+
+  .page-id-7 .our-history-text {
+    margin: 0;
+    margin-bottom: 2em;
   }
 
   .collage {
@@ -2076,12 +1935,21 @@ footer {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-size: 1rem !important;
+    font-size: 1.2rem !important;
     margin-bottom: 4em;
+  }
+
+  .page-id-44 .contact-text {
+    color: #150700;
+    font-size: 1.6rem;
   }
 
   .wp-block-image img {
     margin-bottom: 4em;
+  }
+
+  .products-title {
+    text-align: center;
   }
 }
 
@@ -2302,7 +2170,7 @@ img {
 
 .form-group label {
   display: block;
-  color: #2c1810;
+  color: #150700;
   font-weight: 400;
   margin-bottom: 0.5rem;
   font-size: 1.2rem;
@@ -2346,13 +2214,15 @@ img {
 
 .checkbox-label {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  gap: 0.5em;
+  position: relative;
   cursor: pointer;
 }
 
 .checkbox-label input[type="checkbox"] {
   display: none;
+  margin: 0;
 }
 
 .checkmark {
@@ -2385,10 +2255,17 @@ img {
   font-weight: bold;
 }
 
+.terms-text {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.2;
+}
+
 .terms-link {
   color: #150700;
   text-decoration: underline;
   font-weight: 400;
+  margin-left: 0.25em;
 }
 
 .terms-link:hover {
@@ -2587,8 +2464,8 @@ img {
     gap: 0;
   }
 
-  .coffee-beans {
-    display: none;
+  .product-card img {
+    width: 70%;
   }
 }
 
@@ -2795,10 +2672,6 @@ img {
   .page-id-46,
   .nav-links li a {
     color: #fee8a4 !important;
-  }
-
-  .page-id-44 button {
-    width: auto;
   }
 
   .page-id-44 .contact-text {
@@ -3218,4 +3091,49 @@ img {
 
 .top-bar-menu-left {
   display: flex;
+}
+
+#guest-checkout-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#guest-checkout-modal .modal-content {
+  background: #fff;
+  padding: 2em;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+}
+
+#guest-checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+#guest-checkout-form input {
+  padding: 0.5em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+#guest-checkout-form button {
+  padding: 0.5em 1em;
+  background: #fee8a4;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#guest-checkout-form button.close-modal {
+  background: #f5f5f5;
 }

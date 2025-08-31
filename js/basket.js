@@ -129,34 +129,93 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Add this HTML for guest checkout modal
+  function createGuestCheckoutModal() {
+    const modal = document.createElement("div");
+    modal.id = "guest-checkout-modal";
+    modal.innerHTML = `
+        <div class="modal-content">
+            <h3>Στοιχεία Αποστολής</h3>
+            <form id="guest-checkout-form">
+                <input type="text" name="first_name" placeholder="Όνομα" required>
+                <input type="text" name="last_name" placeholder="Επώνυμο" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="address" placeholder="Διεύθυνση" required>
+                <input type="text" name="place" placeholder="Πόλη" required>
+                <input type="text" name="zip" placeholder="T.K." required>
+                <button type="submit">Ολοκλήρωση Παραγγελίας</button>
+                <button type="button" class="close-modal">Ακύρωση</button>
+            </form>
+        </div>
+    `;
+    return modal;
+  }
+
   // submit order (if modal button exists)
   if (buyBtnModal) {
     buyBtnModal.addEventListener("click", function () {
       if (basket.length === 0) return;
-      if (typeof ajaxurl === "undefined" || !ajaxurl.ajaxurl) {
-        alert("Αποστολή απενεργοποιημένη (ajaxurl missing).");
-        return;
+
+      if (!terraAjax.isLoggedIn) {
+        // Show guest checkout modal
+        const guestModal = createGuestCheckoutModal();
+        document.body.appendChild(guestModal);
+        guestModal.style.display = "block";
+
+        // Handle guest form submission
+        const form = guestModal.querySelector("form");
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formData = new FormData(form);
+          const shippingInfo = Object.fromEntries(formData);
+          submitOrder(shippingInfo);
+          guestModal.remove();
+        });
+
+        // Handle close button
+        guestModal
+          .querySelector(".close-modal")
+          .addEventListener("click", () => {
+            guestModal.remove();
+          });
+      } else {
+        // Logged in user - submit directly
+        submitOrder();
       }
-      fetch(ajaxurl.ajaxurl, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body:
-          "action=submit_order&order_data=" +
-          encodeURIComponent(JSON.stringify(basket)),
-      })
-        .then((res) => res.text())
-        .then((response) => {
+    });
+  }
+
+  // Separate function for order submission
+  function submitOrder(shippingInfo = null) {
+    const formData = new FormData();
+    formData.append("action", "submit_order");
+    formData.append("_ajax_nonce", terraAjax.nonce);
+    formData.append("order_data", JSON.stringify(basket));
+
+    if (shippingInfo) {
+      formData.append("shipping_info", JSON.stringify(shippingInfo));
+    }
+
+    fetch(terraAjax.ajaxurl, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
           alert("Η παραγγελία καταχωρήθηκε!");
           basket.length = 0;
           saveBasket(basket);
           updateCount(basket);
           if (basketModal) basketModal.style.display = "none";
-        })
-        .catch((err) => {
-          alert("Σφάλμα κατά την καταχώρηση της παραγγελίας.");
-          console.error(err);
-        });
-    });
+        } else {
+          throw new Error(data.data);
+        }
+      })
+      .catch((error) => {
+        console.error("Order submission error:", error);
+        alert("Σφάλμα κατά την καταχώρηση της παραγγελίας: " + error.message);
+      });
   }
 
   // SEARCH BAR (guarded)

@@ -27,7 +27,7 @@ get_header();
             <label for="message">Μήνυμα:</label>
             <textarea id="message" name="message" rows="3" required></textarea>
         </div>
-        <button type="submit">Αποστολή</button>
+        <button type="submit" class="button-primary">Αποστολή</button>
     </form>
 </main>
 

@@ -253,7 +253,8 @@ if (isset($_POST['signup_submit']) && $_POST['signup_submit']) {
                         <label class="checkbox-label">
                             <input type="checkbox" name="terms" required>
                             <span class="checkmark"></span>
-                            Συμφωνώ με τους <a href="#" class="terms-link">Όρους και Προϋποθέσεις</a>
+                            <span class="terms-text">Συμφωνώ με τους <a href="#" class="terms-link">Όρους και
+                                    Προϋποθέσεις</a></span>
                         </label>
                     </div>
 
@@ -261,7 +262,7 @@ if (isset($_POST['signup_submit']) && $_POST['signup_submit']) {
                         <label class="checkbox-label">
                             <input type="checkbox" name="newsletter">
                             <span class="checkmark"></span>
-                            Θέλω να λαμβάνω newsletter με προσφορές και νέα
+                            <span class="terms-text">Θέλω να λαμβάνω newsletter με προσφορές και νέα</span>
                         </label>
                     </div>
 
