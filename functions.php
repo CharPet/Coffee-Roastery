@@ -1,12 +1,11 @@
 <?php
-// ...existing code...
+
 function kafekopteio_enqueue_styles() {
     wp_enqueue_style('kafekopteio-style', get_template_directory_uri() . '/style.css');
 }
 add_action('wp_enqueue_scripts', 'kafekopteio_enqueue_styles');
-// ...existing code...
 
-// filepath: c:\Users\petir\Local Sites\kafekopteio4\app\public\wp-content\themes\kafekopteio\functions.php
+
 function terra_enqueue_scripts() {
     wp_enqueue_script(
         'terra-basket', 
@@ -38,7 +37,7 @@ function handle_submit_order() {
     $order_data = json_decode(stripslashes($_POST['order_data']), true);
     $shipping_info = isset($_POST['shipping_info']) ? json_decode(stripslashes($_POST['shipping_info']), true) : [];
     
-    // Calculate total
+
     $total = 0;
     foreach ($order_data as $item) {
         $total += floatval($item['price']) * intval($item['quantity']);
@@ -48,7 +47,7 @@ function handle_submit_order() {
     $wpdb->query('START TRANSACTION');
 
     try {
-        // Insert main order
+  
         $wpdb->insert(
             $wpdb->prefix . 'orders',
             array(

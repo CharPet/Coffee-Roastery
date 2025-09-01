@@ -284,31 +284,4 @@ if (isset($_POST['signup_submit']) && $_POST['signup_submit']) {
     </div>
 </main>
 
-<script>
-// Password strength indicator
-document.getElementById('password').addEventListener('input', function() {
-    const password = this.value;
-
-    if (password.length < 6) {
-        this.style.borderColor = '#dc3545';
-    } else if (password.length < 8) {
-        this.style.borderColor = '#ffc107';
-    } else {
-        this.style.borderColor = '#28a745';
-    }
-});
-
-// Confirm password validation
-document.getElementById('confirm_password').addEventListener('input', function() {
-    const password = document.getElementById('password').value;
-    const confirmPassword = this.value;
-
-    if (confirmPassword === password && confirmPassword.length > 0) {
-        this.style.borderColor = '#28a745';
-    } else if (confirmPassword.length > 0) {
-        this.style.borderColor = '#dc3545';
-    }
-});
-</script>
-
 <?php get_footer(); ?>

@@ -73,47 +73,6 @@
             </div>
         </div>
     </section>
-    <script>
-    let slideIndex = 1;
-    showSlides(slideIndex);
 
-    // Auto-advance slides every 5 seconds
-    setInterval(function() {
-        slideIndex++;
-        if (slideIndex > 3) slideIndex = 1;
-        showSlides(slideIndex);
-    }, 5000);
-
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
-
-    function showSlides(n) {
-        let slides = document.getElementsByClassName("testimonial");
-        let dots = document.getElementsByClassName("dot");
-
-        if (n > slides.length) {
-            slideIndex = 1
-        }
-        if (n < 1) {
-            slideIndex = slides.length
-        }
-
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].classList.remove("active");
-        }
-
-        for (let i = 0; i < dots.length; i++) {
-            dots[i].classList.remove("active");
-        }
-
-        if (slides[slideIndex - 1]) {
-            slides[slideIndex - 1].classList.add("active");
-        }
-        if (dots[slideIndex - 1]) {
-            dots[slideIndex - 1].classList.add("active");
-        }
-    }
-    </script>
 </main>
 <?php get_footer(); ?>
