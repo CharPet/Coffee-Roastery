@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const basketTotal = document.getElementById("basket-total");
   const basketCountEl = document.getElementById("basket-count");
   const closeBasket = document.getElementById("close-basket");
-  const buyButtons = document.querySelectorAll(".buy-btn");
+  const buyButtons = document.querySelectorAll(".add-to-cart-btn");
   const productCards = document.querySelectorAll(".product-card");
   const searchInput = document.getElementById("product-search");
   const buyBtnModal = document.getElementById("buy-btn-modal");

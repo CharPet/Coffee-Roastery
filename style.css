@@ -4,10 +4,6 @@ Author: Petros Charalampidis
 Version: 1.0
 */
 
-/* Reset and Base Styles */
-
-/* Font Declarations - Move these to the top of your main CSS file */
-
 @font-face {
   font-family: "Redressed";
   src: url("./fonts/Redressed-Regular.woff2") format("woff2"),
@@ -90,9 +86,33 @@ body {
   font-family: "Linux Libertine";
   color: #150700;
   line-height: 1.6;
-  background: linear-gradient(135deg, #ffe066 0%, #efca6e 50%, #ffe066 100%);
+  background: linear-gradient(
+    135deg,
+    #ffe066 0%,
+    #efca6e 50%,
+    rgb(255, 224, 102) 100%
+  );
   position: relative;
   overflow-x: hidden;
+
+  --s: 70px; /* control the size*/
+  --c1: rgba(114, 52, 13, 0.2);
+  --c2: #efca6e;
+
+  --_l: #0000 46%, var(--c1) 47% 53%, #0000 54%;
+  background: radial-gradient(100% 100% at 100% 100%, var(--_l)) var(--s)
+      var(--s),
+    radial-gradient(100% 100% at 0 0, var(--_l)) var(--s) var(--s),
+    radial-gradient(
+      100% 100%,
+      #0000 22%,
+      var(--c1) 23% 29%,
+      #0000 30% 34%,
+      var(--c1) 35% 41%,
+      #0000 42%
+    ),
+    var(--c2);
+  background-size: calc(var(--s) * 2) calc(var(--s) * 2);
 }
 
 header {
@@ -145,12 +165,6 @@ nav {
   overflow: hidden;
 }
 
-/* #logo {
-  margin-top: 2em;
-  width: 100%;
-  height: auto;
-} */
-
 figcaption {
   font-family: "Redressed";
   text-align: center;
@@ -201,7 +215,7 @@ figcaption:nth-child(2) {
 }
 
 .nav-links a:hover {
-  background-color: rgba(0, 91, 11, 0.7);
+  background-color: rgba(0, 91, 11, 0.9);
   color: #f9f4f2;
 }
 
@@ -249,7 +263,7 @@ figcaption:nth-child(2) {
   border-radius: 12px;
   cursor: pointer;
   font-family: "Linux Libertine";
-  transition: background-color 0.8s ease;
+  transition: background-color 0.3s ease;
   margin: 2em 1em;
   color: #f9f4f2;
   text-decoration: none;
@@ -259,6 +273,8 @@ figcaption:nth-child(2) {
 
 .cta-button:hover {
   background: linear-gradient(180deg, #013106, #005b0b);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
 }
 
 .testimonials-slideshow {
@@ -428,6 +444,13 @@ form {
   width: 90%;
   height: 2em;
   margin-bottom: 0.6em;
+}
+
+.newsletter-label {
+  font-family: "Linux Libertine", serif;
+  font-size: 1.1rem;
+  color: #150700;
+  text-align: center;
 }
 
 /* SINGLE */
@@ -640,8 +663,16 @@ form {
   border-color: #005b0b;
 }
 
+.page-id-49 main {
+  margin-bottom: 8em;
+}
+
 .page-id-49 .nav-links li a {
   color: #150700;
+}
+
+.nav-links li a:hover {
+  color: #f9f4f2;
 }
 
 .page-id-49 nav {
@@ -651,8 +682,8 @@ form {
 .products-title {
   color: #150700;
   padding: 0.6em;
-  border-radius: 12px;
-  font-size: 1.8rem;
+  font-size: 2.5rem;
+  font-family: "Linux Libertine";
 }
 
 .products-grid {
@@ -703,8 +734,8 @@ form {
 }
 
 .product-desc::first-letter {
-  font-family: "Linux Libertine Bold";
-  font-size: 180%;
+  font-family: "Linux Libertine Capitals";
+  font-size: 190%;
 }
 
 .product-price {
@@ -713,7 +744,7 @@ form {
   margin-top: 1em;
 }
 
-.buy-btn {
+.add-to-cart-btn {
   width: 12em;
   height: 2em;
   margin-top: 2em;
@@ -724,10 +755,14 @@ form {
   font-size: 1.5rem;
   cursor: pointer;
   border-radius: 6px;
+  border: 2px solid #efca6e;
+  transition: all 0.3s ease;
 }
 
-.buy-btn:hover {
+.add-to-cart-btn:hover {
   background: linear-gradient(180deg, #013106, #005b0b);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
 }
 
 #basket-icon {
@@ -741,10 +776,12 @@ form {
   border-left: 2px solid #150700;
   border-bottom: 2px solid #150700;
 }
+
 #basket-icon img {
   width: 32px;
   height: 32px;
 }
+
 #basket-count {
   background: #150700;
   color: #fff;
@@ -754,28 +791,38 @@ form {
   margin-top: 0.2em;
   font-size: 1.2rem;
 }
+
 #basket-modal {
+  width: 90%;
+  height: 80%;
   position: fixed;
   top: 10vh;
   right: 5vw;
-  background: #fff;
+  background: #f9f4f2;
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
   padding: 2em;
   z-index: 2000;
   min-width: 300px;
+  border: 2px solid #005b0b;
 }
+
 #basket-modal h3 {
   margin-top: 0;
-  font-size: 1.6rem;
+  margin-bottom: 1em;
+  font-size: 2.5rem;
 }
+
 #basket-modal ul {
   list-style: none;
   padding: 0;
 }
+
 #basket-modal li {
   margin-bottom: 1em;
+  font-size: 1.2rem;
 }
+
 #basket-modal #basket-total {
   font-weight: bold;
   margin-top: 1em;
@@ -808,6 +855,10 @@ form {
   font-size: 1em;
 }
 
+.remove-btn:hover {
+  color: red;
+}
+
 /* OUR HISTORY */
 
 .page-id-7 header {
@@ -833,10 +884,8 @@ form {
 .page-id-7 .our-history-title {
   color: #150700;
   margin: 2em 1em;
-  font-size: 2rem;
-  border-radius: 12px;
+  font-size: 2.2rem;
   padding: 0.4em;
-  /* background-color: #fee8a4; */
 }
 
 .page-id-7 .our-history-text {
@@ -849,6 +898,11 @@ form {
   background-color: #fee8a4;
   border: 2px solid #013106;
   border-left: 10px solid #005b0b;
+}
+
+.page-id-7 .our-history-text::first-letter {
+  font-family: "Linux Libertine Capitals";
+  font-size: 190%;
 }
 
 .page-id-7 .our-history-img {
@@ -978,11 +1032,6 @@ body .is-layout-flex {
   display: block;
 }
 
-.page-id-10 h2 {
-  display: inline-block;
-  font-size: 1.6rem;
-}
-
 .page-id-10 p {
   font-size: 1.4rem;
 }
@@ -1026,10 +1075,11 @@ body .is-layout-flex {
 }
 
 .our-news-title {
+  display: inline-block;
   text-align: center;
   margin-top: 2em;
   margin-bottom: 1.5em;
-  font-size: 1.8rem !important;
+  font-size: 2.5rem;
 }
 
 /* LOGIN */
@@ -1052,7 +1102,7 @@ body .is-layout-flex {
   align-items: center;
 }
 
-.button-primary {
+.contact-send-button {
   padding: 0.4em 0.8em;
   background: linear-gradient(#005b0b, #013106);
   color: #f9f4f2;
@@ -1060,7 +1110,7 @@ body .is-layout-flex {
   border-radius: 12px;
 }
 
-.button-primary:hover {
+.contact-send-button:hover {
   background: linear-gradient(#013106, #005b0b);
 }
 
@@ -1068,15 +1118,8 @@ body .is-layout-flex {
   font-size: 1.2rem;
 }
 
-/* /////////////////// */
-
-/* Login Page Styles */
 .login-main {
-  /* min-height: 80vh;
-  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%); */
   padding: 2em 1em;
-  /* position: relative;
-  overflow: hidden; */
 }
 
 .login-container {
@@ -1093,11 +1136,9 @@ body .is-layout-flex {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(10px);
   border: 1px solid #005b0b;
-  /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
 }
 
 .login-card:hover {
-  /* transform: translateY(-5px); */
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 15px 30px rgba(0, 0, 0, 0.08);
 }
 
@@ -1119,7 +1160,6 @@ body .is-layout-flex {
   margin: 0;
 }
 
-/* Login Form Styling */
 .login-form-wrapper {
   width: 100%;
 }
@@ -1163,7 +1203,6 @@ body .is-layout-flex {
   transform: translateY(-1px);
 }
 
-/* Remember me checkbox */
 #custom-loginform input[type="checkbox"] {
   margin-right: 0.5rem;
   transform: scale(1.2);
@@ -1182,32 +1221,29 @@ body .is-layout-flex {
   cursor: pointer;
 }
 
-/* Login Button */
-.button-primary,
+.contact-send-button,
 #custom-loginform input[type="submit"] {
   width: 100%;
   padding: 1rem 2rem;
   background: linear-gradient(#005b0b, #013106);
-  color: #fff;
+  color: #f9f4f2;
   border: none;
   border-radius: 12px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-family: "Linux Libertine Bold", serif;
   cursor: pointer;
   transition: all 0.3s ease;
-  /* text-transform: uppercase; */
   letter-spacing: 0.5px;
   box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
 }
 
-.button-primary:hover,
+.contact-send-button:hover,
 #custom-loginform input[type="submit"]:hover {
   background: linear-gradient(#013106, #005b0b);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
 }
 
-/* Login Links */
 .login-links {
   margin-top: 2rem;
   text-align: center;
@@ -1237,11 +1273,9 @@ body .is-layout-flex {
 
 .register-link:hover,
 .forgot-link:hover {
-  /* color: #5d2e0a; */
   text-decoration: underline;
 }
 
-/* Logged In Message */
 .logged-in-message {
   text-align: center;
   padding: 2rem 0;
@@ -1271,15 +1305,23 @@ body .is-layout-flex {
   margin-bottom: 1.5rem;
 }
 
-/* Navigation Border for Login Page */
 .page-id-46 nav,
 .page-template-login nav {
   border-bottom: 4px double #8b4513;
 }
 
-/* Responsive Design */
-
 /* CONTACT */
+
+.page-id-44 {
+  background: linear-gradient(
+    135deg,
+    #ffe066 0%,
+    #efca6e 50%,
+    rgb(255, 224, 102) 100%
+  );
+  position: relative;
+  overflow-x: hidden;
+}
 
 .page-id-44 main {
   display: flex;
@@ -1302,7 +1344,6 @@ body .is-layout-flex {
   font-size: 2.5rem;
   color: #150700;
   margin-bottom: 1.5em;
-  font-weight: normal;
 }
 
 .page-id-44 .contact-text {
@@ -1346,7 +1387,6 @@ body .is-layout-flex {
   height: auto;
   margin: 0 auto;
   padding: auto;
-
   font-size: 1.4rem;
 }
 
@@ -1370,7 +1410,6 @@ body .is-layout-flex {
 
 .page-id-44 button:hover {
   background: linear-gradient(180deg, #013106, #005b0b);
-  /* color: #150700; */
 }
 
 /* FOOTER */
@@ -1383,7 +1422,7 @@ footer {
   border-top: 1px solid #150700;
 }
 
-.footer-part1 {
+.footer-top {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1474,7 +1513,7 @@ footer {
   height: auto;
 }
 
-.footer-part2 {
+.footer-bottom {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1540,471 +1579,22 @@ footer {
   border-left: 10px solid #005b0b;
 }
 
-/* MEDIA QUERIES */
-
-/* Responsive Media Queries for Terra Coffee */
-
-/* Tablet Styles (768px - 1024px) */
-@media screen and (max-width: 1024px) {
-  /* nav {
-    display: none;
-  } */
-
-  .hero-section h1 {
-    font-size: 4rem;
-  }
-
-  .hero-section h2 {
-    font-size: 2.4rem;
-    margin: 3em auto 1.5em auto;
-  }
-
-  .nav-links {
-    gap: 1.5rem;
-  }
-
-  .nav-links a {
-    font-size: 1.6rem;
-  }
-
-  .hero-layout {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: 1.5em;
-    margin-bottom: 6em;
-  }
-
-  .logo-container {
-    width: 200px;
-    margin-bottom: 3em;
-  }
-
-  figcaption {
-    font-size: 2rem;
-  }
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-  }
-
-  .page-id-10 main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .page-id-46 form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2em;
-    margin: 2em auto 0 auto;
-    gap: 0;
-  }
-
-  .login-username,
-  .login-password {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .button-primary {
-    padding: 0.8em 1.6em;
-    background-color: #005b0b;
-    color: #f9f4f2;
-    font-size: 1rem;
-    border-radius: 12px;
-  }
-
-  .login-form-wrapper p {
-    margin-bottom: 2em;
-  }
-
-  .page-id-46 nav {
-    border-bottom: none;
-  }
-
-  .page-id-44 button[type="submit"] {
-    width: 100%;
-  }
-
-  .footer-links {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-  }
-}
-
-/* Mobile Styles (up to 768px) */
-@media screen and (max-width: 768px) {
-  body {
-    font-size: 0.9rem;
-  }
-
-  /* Header and Navigation */
-  header {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .logo-container {
-    width: 200px;
-    margin-bottom: 2em;
-  }
-
-  figcaption {
-    font-size: 1.8rem;
-  }
-
-  figcaption:nth-child(2) {
-    font-size: 0.9rem;
-  }
-
-  nav {
-    padding: 0.5rem 1rem;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-  }
-
-  .nav-links a {
-    font-size: 1.4rem;
-    padding: 0.8rem 1.5rem;
-  }
-
-  /* Hero Section */
-  .hero-section {
-    padding: 1rem;
-  }
-
-  .hero-text {
-    width: 100%;
-  }
-
-  .hero-section h1 {
-    font-size: 2.8rem;
-    line-height: 1.2;
-    margin-bottom: 1.5em;
-    padding: 0.3em 0.2em;
-  }
-
-  .hero-section h2 {
-    font-size: 1.8rem;
-    margin: 2em auto 1.5em auto;
-    padding: 0.3em 0.4em;
-  }
-
-  .cta-button {
-    font-size: 1.4rem;
-    padding: 0.8em;
-    margin: 1.5em auto;
-    max-width: 300px;
-  }
-
-  /* Hero Layout */
-  .hero-layout {
-    flex-direction: column;
-    gap: 1em;
-    margin-bottom: 4em;
-  }
-
-  /* Background Video */
-  .bg-video {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-
-  .hero-text {
-    margin-bottom: 8em;
-  }
-
-  /* Sticky elements */
-  .sticky-discount,
-  .sticky-newsletter {
-    width: 50%;
-    margin-bottom: 1em;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-
-  .sticky-discount aside,
-  .newsletter-aside {
-    padding: 1rem;
-    border-radius: 8px;
-    background-color: rgba(0, 91, 11, 0.1);
-    margin: 0 1rem;
-  }
-
-  .discount-link {
-    font-size: 1rem;
-    line-height: 1.4;
-  }
-
-  /* Newsletter Form */
-  .newsletter-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .newsletter-label {
-    font-size: 1.1rem;
-    color: #333;
-    font-weight: bold;
-  }
-
-  .newsletter-fields {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  .newsletter-input {
-    padding: 0.8rem;
-    border: 2px solid #fee8a4;
-    border-radius: 8px;
-    font-size: 1rem;
-    width: 100%;
-  }
-
-  .newsletter-button {
-    padding: 0.8rem 1.5rem;
-    background-color: #005b0b;
-    color: #fee8a4;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .newsletter-button:hover {
-    background-color: #013106;
-  }
-}
-
-/* Small Mobile Styles (up to 480px) */
-@media screen and (max-width: 480px) {
-  .hero-section h1 {
-    font-size: 2.2rem;
-  }
-
-  .hero-section h2 {
-    font-size: 1.5rem;
-  }
-
-  .nav-links a {
-    font-size: 1.2rem;
-  }
-
-  .cta-button {
-    font-size: 1.2rem;
-    padding: 0.7em;
-  }
-
-  .logo-container {
-    width: 160px;
-  }
-
-  figcaption {
-    font-size: 1.5rem;
-  }
-
-  .newsletter-form {
-    margin-bottom: 8em;
-  }
-
-  .newsletter-aside {
-    gap: 0.6rem;
-  }
-
-  .sticky-discount aside,
-  .newsletter-aside {
-    margin: 0 0.5rem;
-    padding: 0.8rem;
-  }
-
-  .footer-part1 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .socials {
-    margin: 0;
-    max-width: 100%;
-  }
-
-  .footer-links {
-    display: none;
-  }
-
-  .footer-nav {
-    display: none;
-  }
-
-  .products-grid {
-    grid-template-columns: 1fr;
-    /* max-width: 90%; */
-  }
-
-  .page-id-7 .our-history-title {
-    text-align: center;
-  }
-
-  .page-id-7 .our-history-text {
-    margin: 0;
-    margin-bottom: 2em;
-  }
-
-  .collage {
-    display: none;
-  }
-
-  .page-id-10 main {
-    margin-top: 0;
-    grid-template-columns: 1fr;
-  }
-  /* 
-  #basket-icon {
-    padding: 0.2em;
-    position: absolute;
-    top: 1em;
-    right: 0.2em;
-    border: 2px solid #150700;
-  } */
-
-  .top-bar-menu-left {
-    /* padding: 0.2em; */
-    position: absolute;
-    top: 1.4em;
-  }
-  .mobile-nav-toggle {
-    margin-left: 0.2em;
-  }
-
-  #basket-list {
-    color: #150700;
-  }
-
-  .single .single-article {
-    border: 1px solid #005b0b;
-  }
-
-  .single .single-article-title {
-    font-size: 1.5rem;
-    margin-bottom: 0;
-    color: #150700;
-    text-align: left;
-    padding: 0.2em;
-  }
-
-  .postid-17,
-  .postid-15,
-  .postid-13 main {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .postid-17 .postid-15,
-  .postid-13 .single-article {
-    width: 100%;
-    max-width: 90%;
-    padding: 0;
-    margin: 0 auto;
-    margin-bottom: 8em;
-  }
-
-  .single-article p {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-size: 1.2rem !important;
-    margin-bottom: 4em;
-  }
-
-  .page-id-44 .contact-text {
-    color: #150700;
-    font-size: 1.6rem;
-  }
-
-  .wp-block-image img {
-    margin-bottom: 4em;
-  }
-
-  .products-title {
-    text-align: center;
-  }
-}
-
-/* Landscape Mobile Styles */
-@media screen and (max-height: 480px) and (orientation: landscape) {
-  .hero-section h1 {
-    font-size: 2rem;
-    margin-bottom: 1em;
-  }
-
-  .hero-section h2 {
-    font-size: 1.4rem;
-    margin: 1em auto;
-  }
-
-  .cta-button {
-    margin: 1em auto;
-  }
-
-  .hero-layout {
-    margin-bottom: 2em;
-  }
-
-  .logo-container {
-    margin-bottom: 1em;
-  }
-}
-
-/* Additional utility classes for responsive design */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-@media screen and (max-width: 768px) {
-  .container {
-    padding: 0 0.5rem;
-  }
-}
-
-/* Ensure images are responsive */
 img {
   max-width: 100%;
   height: auto;
 }
 
-/* Make sure the background video is responsive */
 .bg-video {
   width: 100%;
   height: auto;
   max-width: 100%;
 }
-
-/* --- */
 
 .mobile-nav-toggle {
   display: none;
@@ -2015,9 +1605,6 @@ img {
   cursor: pointer;
   padding: 0.5rem;
   z-index: 1001;
-  /* position: fixed;
-  top: 1rem;
-  left: 1rem; */
   margin-left: 1em;
 }
 
@@ -2025,7 +1612,6 @@ img {
   outline: 2px solid #fee8a4;
 }
 
-/* Hamburger icon */
 .hamburger {
   display: flex;
   flex-direction: column;
@@ -2054,7 +1640,6 @@ img {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Mobile Navigation Menu */
 .mobile-nav {
   position: fixed;
   top: 0;
@@ -2096,15 +1681,8 @@ img {
   background-color: rgba(254, 232, 164, 0.1);
 }
 
-/* signup */
-
-/* Signup Page Styles */
 .signup-main {
-  /* min-height: 80vh;
-  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%); */
   padding: 2rem 1rem;
-  /* position: relative;
-  overflow: hidden; */
 }
 
 .signup-container {
@@ -2121,11 +1699,9 @@ img {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
 }
 
 .signup-card:hover {
-  /* transform: translateY(-5px); */
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 15px 30px rgba(0, 0, 0, 0.08);
 }
 
@@ -2139,17 +1715,14 @@ img {
   font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  /* text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
 .signup-subtitle {
   color: #f9f4f2;
   font-size: 1.1rem;
   margin: 0;
-  /* opacity: 0.8; */
 }
 
-/* Form Styling */
 .signup-form-wrapper {
   width: 100%;
 }
@@ -2207,7 +1780,6 @@ img {
   opacity: 0.8;
 }
 
-/* Custom Checkbox Styling */
 .checkbox-group {
   margin-bottom: 1.2rem;
 }
@@ -2235,9 +1807,9 @@ img {
   background: #f9f4f2;
   transition: all 0.3s ease;
   flex-shrink: 0;
-  width: 24px; /* adjust as needed */
-  height: 24px; /* added */
-  font-size: 16px; /* optional: controls the checkmark symbol */
+  width: 24px;
+  height: 24px;
+  font-size: 16px;
 }
 
 .checkbox-label input[type="checkbox"]:checked + .checkmark {
@@ -2269,11 +1841,9 @@ img {
 }
 
 .terms-link:hover {
-  /* color: #5d2e0a; */
   text-transform: underline;
 }
 
-/* Signup Button */
 .signup-button {
   width: 100%;
   padding: 1rem 2rem;
@@ -2285,7 +1855,6 @@ img {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  /* text-transform: uppercase; */
   letter-spacing: 0.5px;
   box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
   margin-top: 1rem;
@@ -2297,7 +1866,6 @@ img {
   box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
 }
 
-/* Signup Links */
 .signup-links {
   margin-top: 2rem;
   text-align: center;
@@ -2323,20 +1891,16 @@ img {
   color: #f9f4f2;
   text-decoration: none;
   font-weight: 400;
-  /* transition: all 0.3s ease; */
 }
 
 .login-link-in-registration:hover {
-  /* color: #5d2e0a; */
   text-decoration: underline;
 }
 
-/* Success and Error Messages */
 .success-message,
 .logged-in-message {
   text-align: center;
   padding: 2rem 0;
-  /* color: #f9f4f2; */
 }
 
 .success-icon {
@@ -2436,40 +2000,247 @@ img {
 
 .btn-home:hover {
   background: #efca6e;
-  /* transform: translateY(-2px); */
   box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .signup-main {
-    padding: 1rem 0.5rem;
-  }
-
-  .signup-card {
-    padding: 2rem 1.5rem;
-    margin: 0 1rem;
-  }
-
-  .signup-title {
-    font-size: 1.8rem;
-  }
-
-  .signup-subtitle {
-    font-size: 1rem;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  .product-card img {
-    width: 70%;
-  }
+.page-id-52 .nav-links a {
+  color: #150700;
 }
 
-@media (max-width: 480px) {
+.page-id-52 nav {
+  border-bottom: 4px double #150700;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.bg-video {
+  width: 100%;
+  height: 100vh;
+  max-width: 100%;
+}
+
+.user-welcome {
+  font-size: 1rem;
+  color: #f9f4f2;
+  padding: 0.5em 1em;
+  margin-right: 1em;
+  background: #005b0b;
+}
+
+.top-bar {
+  width: 100%;
+}
+
+.top-bar-menu {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-bar-menu-left {
+  display: flex;
+}
+
+#guest-checkout-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#guest-checkout-modal .modal-content {
+  background: #fff;
+  padding: 2em;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+}
+
+#guest-checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+#guest-checkout-form input {
+  padding: 0.5em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+#guest-checkout-form button {
+  padding: 0.5em 1em;
+  background: #fee8a4;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#guest-checkout-form button.close-modal {
+  background: #f5f5f5;
+}
+
+@media screen and (max-width: 480px) {
+  .hero-section h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .nav-links a {
+    font-size: 1.2rem;
+  }
+
+  .cta-button {
+    font-size: 1.2rem;
+    padding: 0.7em;
+  }
+
+  .logo-container {
+    width: 160px;
+  }
+
+  figcaption {
+    font-size: 1.5rem;
+  }
+
+  .newsletter-form {
+    margin-bottom: 8em;
+  }
+
+  .newsletter-aside {
+    gap: 0.6rem;
+  }
+
+  .sticky-discount aside,
+  .newsletter-aside {
+    margin: 0 0.5rem;
+    padding: 0.8rem;
+  }
+
+  .footer-part1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .socials {
+    margin: 0;
+    max-width: 100%;
+  }
+
+  .footer-links {
+    display: none;
+  }
+
+  .footer-nav {
+    display: none;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-id-7 .our-history-title {
+    text-align: center;
+  }
+
+  .page-id-7 .our-history-text {
+    margin: 0;
+    margin-bottom: 2em;
+  }
+
+  .collage {
+    display: none;
+  }
+
+  .page-id-10 main {
+    margin-top: 0;
+    grid-template-columns: 1fr;
+  }
+
+  .top-bar-menu-left {
+    position: absolute;
+    top: 1.4em;
+  }
+  .mobile-nav-toggle {
+    margin-left: 0.2em;
+  }
+
+  #basket-list {
+    color: #150700;
+  }
+
+  .single .single-article {
+    border: 1px solid #005b0b;
+  }
+
+  .single .single-article-title {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    color: #150700;
+    text-align: left;
+    padding: 0.2em;
+  }
+
+  .postid-17,
+  .postid-15,
+  .postid-13 main {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .postid-17 .postid-15,
+  .postid-13 .single-article {
+    width: 100%;
+    max-width: 90%;
+    padding: 0;
+    margin: 0 auto;
+    margin-bottom: 8em;
+  }
+
+  .single-article p {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 1.2rem !important;
+    margin-bottom: 4em;
+  }
+
+  .page-id-44 .contact-text {
+    color: #150700;
+    font-size: 1.6rem;
+  }
+
+  .wp-block-image img {
+    margin-bottom: 4em;
+  }
+
+  .products-title {
+    text-align: center;
+  }
+
   .signup-card {
     padding: 1.5rem 1rem;
     border-radius: 15px;
@@ -2482,69 +2253,7 @@ img {
   .checkbox-label {
     font-size: 0.9rem;
   }
-}
 
-.page-id-52 .nav-links a {
-  color: #150700;
-}
-
-.page-id-52 nav {
-  border-bottom: 4px double #150700;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .testimonials-slideshow {
-    padding: 15px;
-    margin: 20px auto;
-  }
-
-  .testimonial-text {
-    font-size: 1.1em;
-  }
-
-  .testimonial-author {
-    font-size: 0.9em;
-  }
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .single-main {
-    padding: 1rem;
-  }
-
-  .single .single-article {
-    margin: 0 0 2rem 0;
-    border-radius: 16px;
-  }
-
-  .article-header,
-  .article-image-container,
-  .single .single-article-content,
-  .article-footer {
-    padding-left: 1.5em;
-    padding-right: 1.5em;
-  }
-
-  .article-header {
-    padding-top: 2rem;
-    padding-bottom: 1.5em;
-  }
-
-  .single .single-article-content {
-    padding-bottom: 2em;
-    font-size: 1.05em;
-  }
-
-  .article-meta {
-    flex-direction: row;
-    gap: 1em;
-    align-items: flex-start;
-  }
-}
-
-@media (max-width: 480px) {
   .article-header,
   .article-image-container,
   .single .single-article-content,
@@ -2552,28 +2261,7 @@ img {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-}
 
-@media (max-width: 768px) {
-  .login-main {
-    padding: 1rem 0.5rem;
-  }
-
-  .login-card {
-    padding: 2rem 1.5rem;
-    margin: 0 1rem;
-  }
-
-  .login-subtitle {
-    font-size: 1rem;
-  }
-
-  .coffee-beans {
-    display: none; /* Hide decorative elements on mobile */
-  }
-}
-
-@media (max-width: 480px) {
   .login-card {
     padding: 1.5rem 1rem;
     border-radius: 15px;
@@ -2582,326 +2270,7 @@ img {
   .login-title {
     font-size: 1.6rem;
   }
-}
 
-@media screen and (max-width: 1440px) {
-  .page-id-7 main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-}
-
-/* Responsive Media Queries for Terra Coffee */
-
-/* Tablet Styles (768px - 1024px) */
-@media screen and (max-width: 1024px) {
-  .hero-section h1 {
-    font-size: 4rem;
-    font-family: "Miama", serif;
-  }
-
-  .hero-section h2 {
-    font-size: 2.4rem;
-    margin: 3em auto 1.5em auto;
-    font-family: "Miama", serif;
-  }
-
-  .nav-links {
-    gap: 1.5rem;
-  }
-
-  .nav-links a {
-    font-size: 1.6rem;
-    font-family: "Linux Libertine", serif;
-  }
-
-  .hero-layout {
-    gap: 1.5em;
-    margin-bottom: 6em;
-  }
-
-  .logo-container {
-    width: 200px;
-    margin-bottom: 3em;
-  }
-
-  figcaption {
-    font-size: 2rem;
-    font-family: "Redressed", cursive;
-  }
-
-  figcaption:nth-child(2) {
-    font-family: "GFS Bodoni Rg", serif;
-  }
-
-  .cta-button {
-    font-family: "Linux Libertine", serif;
-  }
-
-  /* Show mobile menu for tablets */
-  .mobile-nav-toggle {
-    display: block;
-  }
-
-  /* Hide desktop navigation */
-  .nav-left,
-  .nav-right {
-    display: none;
-  }
-
-  .mobile-nav {
-    width: 300px;
-  }
-
-  .mobile-nav-links a {
-    font-size: 1.6rem;
-    padding: 1.2rem 2rem;
-    color: #fee8a4;
-  }
-
-  .mobile-nav-toggle {
-    background-color: #005b0b;
-  }
-
-  .page-id-49,
-  .page-id-7,
-  .page-id-10,
-  .page-id-44,
-  .page-id-46,
-  .nav-links li a {
-    color: #fee8a4 !important;
-  }
-
-  .page-id-44 .contact-text {
-    color: #150700;
-  }
-
-  .page-id-44 form {
-    max-width: 90%;
-  }
-
-  .page-id-7 main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .collage {
-    max-width: 90%;
-  }
-}
-
-/* Mobile Styles (up to 768px) */
-@media screen and (max-width: 768px) {
-  body {
-    font-size: 0.9rem;
-    font-family: "Linux Libertine", serif;
-  }
-
-  /* Header and Navigation */
-  header {
-    flex-direction: column;
-    gap: 1rem;
-    position: relative;
-  }
-
-  /* Show mobile menu toggle */
-  .mobile-nav-toggle {
-    display: block;
-  }
-
-  /* Hide desktop navigation */
-  .nav-left,
-  .nav-right {
-    display: none;
-  }
-
-  .mobile-nav {
-    width: 250px;
-  }
-
-  .mobile-nav-links a {
-    font-size: 1.4rem;
-    padding: 1.2rem 2rem;
-  }
-
-  /* Hero Section */
-  .hero-section {
-    padding: 1rem;
-  }
-
-  .hero-text {
-    width: 100%;
-  }
-
-  .hero-section h1 {
-    font-size: 2.8rem;
-    line-height: 1.2;
-    margin-bottom: 1.5em;
-    padding: 0.3em 0.2em;
-    font-family: "Miama", serif;
-  }
-
-  .hero-section h2 {
-    font-size: 2rem;
-    margin: 2em auto 1.5em auto;
-    padding: 0.3em 0.4em;
-    font-family: "Miama", serif;
-  }
-
-  .cta-button {
-    font-size: 1.3rem;
-    padding: 0.8em;
-    margin: 1.5em auto;
-    max-width: 300px;
-    font-family: "Linux Libertine", serif;
-  }
-
-  /* Hero Layout */
-  .hero-layout {
-    flex-direction: column;
-    gap: 1em;
-    margin-bottom: 4em;
-  }
-
-  /* Background Video */
-  .bg-video {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-
-  /* Sticky elements */
-  .sticky-discount,
-  .sticky-newsletter {
-    position: static;
-    width: 100%;
-    margin-bottom: 1em;
-  }
-
-  .sticky-discount aside,
-  .newsletter-aside {
-    padding: 1em;
-    border-radius: 8px;
-    background-color: rgba(0, 91, 11, 0.1);
-    margin: 0 1em;
-    margin-bottom: 4em;
-  }
-
-  .discount-link {
-    font-size: 1.4rem;
-    line-height: 1.4;
-    font-family: "Linux Libertine", serif;
-  }
-
-  /* Newsletter Form */
-  .newsletter-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-  }
-
-  /* .newsletter-label {
-    font-size: 1.1rem;
-    color: #333;
-    font-weight: bold;
-    font-family: "Times Sans Serif", serif;
-  } */
-
-  .newsletter-fields {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  .newsletter-input {
-    padding: 0.8rem;
-    border: 2px solid #fee8a4;
-    border-radius: 8px;
-    font-size: 1rem;
-    width: 100%;
-    font-family: "Linux Libertine", serif;
-  }
-
-  .newsletter-button {
-    padding: 0.8rem 1.5rem;
-    background-color: #005b0b;
-    color: #fee8a4;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-family: "Linux Libertine", serif;
-  }
-
-  .newsletter-button:hover {
-    background-color: #013106;
-  }
-
-  .logo-container {
-    width: 200px;
-    margin-bottom: 2em;
-  }
-
-  figcaption {
-    font-size: 1.8rem;
-    font-family: "Redressed", cursive;
-  }
-
-  figcaption:nth-child(2) {
-    font-size: 0.9rem;
-    font-family: "GFS Bodoni Rg", serif;
-  }
-
-  .logo-container-no-background {
-    width: 190px;
-  }
-
-  .logo-container-no-background figcaption:last-child {
-    font-size: 0.8rem;
-  }
-
-  .footer-links {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-  }
-
-  .footer-links li a {
-    font-size: 1.2rem;
-  }
-
-  .socials a img {
-    width: 40px;
-  }
-
-  /* Overlay for mobile menu */
-  .nav-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-  }
-
-  .nav-overlay.active {
-    opacity: 1;
-    visibility: visible;
-  }
-}
-
-/* Small Mobile Styles (up to 480px) */
-@media screen and (max-width: 480px) {
   .hero-section h1 {
     font-size: 2.2rem;
     font-family: "Miama", serif;
@@ -2997,143 +2366,629 @@ img {
   }
 }
 
-/* Landscape Mobile Styles */
-@media screen and (max-height: 500px) and (orientation: landscape) {
-  .hero-section h1 {
-    font-size: 2rem;
-    margin-bottom: 1em;
-    font-family: "Miama", serif;
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 0.9rem;
   }
 
-  .hero-section h2 {
-    font-size: 1.4rem;
-    margin: 1em auto;
-    font-family: "Miama", serif;
-  }
-
-  .cta-button {
-    margin: 1em auto;
-    font-family: "Linux Libertine", serif;
-  }
-
-  .hero-layout {
-    margin-bottom: 2em;
+  header {
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .logo-container {
-    margin-bottom: 1em;
+    width: 200px;
+    margin-bottom: 2em;
+  }
+
+  figcaption {
+    font-size: 1.8rem;
+  }
+
+  figcaption:nth-child(2) {
+    font-size: 0.9rem;
+  }
+
+  nav {
+    padding: 0.5rem 1rem;
   }
 
   .nav-links {
-    width: 250px;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .nav-links a {
+    font-size: 1.4rem;
+    padding: 0.8rem 1.5rem;
+  }
+
+  .hero-section {
+    padding: 1rem;
+  }
+
+  .hero-text {
+    width: 100%;
+  }
+
+  .hero-section h1 {
+    font-size: 2.8rem;
+    line-height: 1.2;
+    margin-bottom: 1.5em;
+    padding: 0.3em 0.2em;
+  }
+
+  .hero-section h2 {
+    font-size: 1.8rem;
+    margin: 2em auto 1.5em auto;
+    padding: 0.3em 0.4em;
+  }
+
+  .cta-button {
+    font-size: 1.4rem;
+    padding: 0.8em;
+    margin: 1.5em auto;
+    max-width: 300px;
+  }
+
+  .hero-layout {
+    flex-direction: column;
+    gap: 4em;
+    margin-bottom: 4em;
+  }
+
+  .bg-video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .hero-text {
+    margin-bottom: 8em;
+  }
+
+  .sticky-discount,
+  .sticky-newsletter {
+    width: 50%;
+    margin-bottom: 1em;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .sticky-discount aside,
+  .newsletter-aside {
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: rgba(0, 91, 11, 0.1);
+    margin: 0 1rem;
+  }
+
+  .discount-link {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .newsletter-label {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .newsletter-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .newsletter-input {
+    padding: 0.8rem;
+    border: 2px solid #fee8a4;
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  .newsletter-button {
+    padding: 0.8rem 1.5rem;
+    background-color: #005b0b;
+    color: #fee8a4;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .newsletter-button:hover {
+    background-color: #013106;
+  }
+
+  .container {
+    padding: 0 0.5rem;
+  }
+
+  .signup-main {
+    padding: 1rem 0.5rem;
+  }
+
+  .signup-card {
+    padding: 2rem 1.5rem;
+    margin: 0 1rem;
+  }
+
+  .signup-title {
+    font-size: 1.8rem;
+  }
+
+  .signup-subtitle {
+    font-size: 1rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .product-card img {
+    width: 70%;
+  }
+
+  .testimonials-slideshow {
+    padding: 15px;
+    margin: 20px auto;
+  }
+
+  .testimonial-text {
+    font-size: 1.1em;
+  }
+
+  .testimonial-author {
+    font-size: 0.9em;
+  }
+
+  .single-main {
+    padding: 1rem;
+  }
+
+  .single .single-article {
+    margin: 0 0 2rem 0;
+    border-radius: 16px;
+  }
+
+  .article-header,
+  .article-image-container,
+  .single .single-article-content,
+  .article-footer {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+  }
+
+  .article-header {
+    padding-top: 2rem;
+    padding-bottom: 1.5em;
+  }
+
+  .single .single-article-content {
+    padding-bottom: 2em;
+    font-size: 1.05em;
+  }
+
+  .article-meta {
+    flex-direction: row;
+    gap: 1em;
+    align-items: flex-start;
+  }
+
+  .login-main {
+    padding: 1rem 0.5rem;
+  }
+
+  .login-card {
+    padding: 2rem 1.5rem;
+    margin: 0 1rem;
+  }
+
+  .login-subtitle {
+    font-size: 1rem;
+  }
+
+  .coffee-beans {
+    display: none;
+  }
+
+  body {
+    font-size: 0.9rem;
+    font-family: "Linux Libertine", serif;
+  }
+
+  header {
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+  }
+
+  .mobile-nav-toggle {
+    display: block;
+  }
+
+  .nav-left,
+  .nav-right {
+    display: none;
   }
 
   .mobile-nav {
     width: 250px;
   }
-}
 
-/* Additional utility classes for responsive design */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
+  .mobile-nav-links a {
+    font-size: 1.4rem;
+    padding: 1.2rem 2rem;
+  }
 
-@media screen and (max-width: 768px) {
+  .hero-section {
+    padding: 1rem;
+  }
+
+  .hero-text {
+    width: 100%;
+  }
+
+  .hero-section h1 {
+    font-size: 2.8rem;
+    line-height: 1.2;
+    margin-bottom: 1.5em;
+    padding: 0.3em 0.2em;
+    font-family: "Miama", serif;
+  }
+
+  .hero-section h2 {
+    font-size: 2rem;
+    margin: 2em auto 1.5em auto;
+    padding: 0.3em 0.4em;
+    font-family: "Miama", serif;
+  }
+
+  .cta-button {
+    font-size: 1.3rem;
+    padding: 0.8em;
+    margin: 1.5em auto;
+    max-width: 300px;
+    font-family: "Linux Libertine", serif;
+  }
+
+  .hero-layout {
+    flex-direction: column;
+    gap: 1em;
+    margin-bottom: 4em;
+  }
+
+  .bg-video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .sticky-discount,
+  .sticky-newsletter {
+    position: static;
+    width: 100%;
+    margin-bottom: 1em;
+  }
+
+  .sticky-discount aside,
+  .newsletter-aside {
+    padding: 1em;
+    border-radius: 8px;
+    background-color: rgba(0, 91, 11, 0.1);
+    margin: 0 1em;
+    margin-bottom: 4em;
+  }
+
+  .discount-link {
+    font-size: 1.4rem;
+    line-height: 1.4;
+    font-family: "Linux Libertine", serif;
+  }
+
+  .newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+
+  .newsletter-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .newsletter-input {
+    padding: 0.8rem;
+    border: 2px solid #fee8a4;
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 100%;
+    font-family: "Linux Libertine", serif;
+  }
+
+  .newsletter-button {
+    padding: 0.8rem 1.5rem;
+    background-color: #005b0b;
+    color: #fee8a4;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: "Linux Libertine", serif;
+  }
+
+  .newsletter-button:hover {
+    background-color: #013106;
+  }
+
+  .logo-container {
+    width: 200px;
+    margin-bottom: 2em;
+  }
+
+  figcaption {
+    font-size: 1.8rem;
+    font-family: "Redressed", cursive;
+  }
+
+  figcaption:nth-child(2) {
+    font-size: 0.9rem;
+    font-family: "GFS Bodoni Rg", serif;
+  }
+
+  .logo-container-no-background {
+    width: 190px;
+  }
+
+  .logo-container-no-background figcaption:last-child {
+    font-size: 0.8rem;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .footer-links li a {
+    font-size: 1.2rem;
+  }
+
+  .socials a img {
+    width: 40px;
+  }
+
+  .nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
   .container {
     padding: 0 0.5rem;
   }
 }
 
-/* Ensure images are responsive */
-img {
-  max-width: 100%;
-  height: auto;
-}
+@media screen and (max-width: 1024px) {
+  .hero-section h1 {
+    font-size: 4rem;
+  }
 
-/* Make sure the background video is responsive */
-.bg-video {
-  width: 100%;
-  height: 100vh;
-  max-width: 100%;
-}
+  .hero-section h2 {
+    font-size: 2.4rem;
+    margin: 3em auto 1.5em auto;
+  }
 
-.user-welcome {
-  font-size: 1rem;
-  color: #f9f4f2;
-  padding: 0.5em 1em;
-  margin-right: 1em;
-  background: #005b0b;
+  .nav-links {
+    gap: 1.5rem;
+  }
 
-  /* position: absolute;
-  top: 0;
-  left: 0;
-   */
-}
+  .nav-links a {
+    font-size: 1.6rem;
+  }
 
-/* Adjust nav-left to accommodate welcome message */
-/* .nav-left {
+  .hero-layout {
+    width: 100%;
     display: flex;
+    flex-direction: row;
+    gap: 1.5em;
+    margin-bottom: 6em;
+  }
+
+  .logo-container {
+    width: 200px;
+    margin-bottom: 3em;
+  }
+
+  figcaption {
+    font-size: 2rem;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-} */
+    flex-direction: column;
+  }
 
-.top-bar {
-  width: 100%;
+  .page-id-10 main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .page-id-46 form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+    margin: 2em auto 0 auto;
+    gap: 0;
+  }
+
+  .login-username,
+  .login-password {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .contact-send-button {
+    padding: 0.8em 1.6em;
+    background-color: #005b0b;
+    color: #f9f4f2;
+    font-size: 1rem;
+    border-radius: 12px;
+  }
+
+  .login-form-wrapper p {
+    margin-bottom: 2em;
+  }
+
+  .page-id-46 nav {
+    border-bottom: none;
+  }
+
+  .page-id-44 button[type="submit"] {
+    width: 100%;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .hero-section h1 {
+    font-size: 4rem;
+    font-family: "Miama", serif;
+  }
+
+  .hero-section h2 {
+    font-size: 2.4rem;
+    margin: 3em auto 1.5em auto;
+    font-family: "Miama", serif;
+  }
+
+  .nav-links {
+    gap: 1.5rem;
+  }
+
+  .nav-links a {
+    font-size: 1.6rem;
+    font-family: "Linux Libertine", serif;
+  }
+
+  .hero-layout {
+    gap: 1.5em;
+    margin-bottom: 6em;
+  }
+
+  .logo-container {
+    width: 200px;
+    margin-bottom: 3em;
+  }
+
+  figcaption {
+    font-size: 2rem;
+    font-family: "Redressed", cursive;
+  }
+
+  figcaption:nth-child(2) {
+    font-family: "GFS Bodoni Rg", serif;
+  }
+
+  .cta-button {
+    font-family: "Linux Libertine", serif;
+  }
+
+  .mobile-nav-toggle {
+    display: block;
+  }
+
+  .nav-left,
+  .nav-right {
+    display: none;
+  }
+
+  .mobile-nav {
+    width: 300px;
+  }
+
+  .mobile-nav-links a {
+    font-size: 1.6rem;
+    padding: 1.2rem 2rem;
+    color: #fee8a4;
+  }
+
+  .mobile-nav-toggle {
+    background-color: #005b0b;
+  }
+
+  .page-id-49,
+  .page-id-7,
+  .page-id-10,
+  .page-id-44,
+  .page-id-46,
+  .nav-links li a {
+    color: #fee8a4 !important;
+  }
+
+  .page-id-44 .contact-text {
+    color: #150700;
+  }
+
+  .page-id-44 form {
+    max-width: 90%;
+  }
+
+  .page-id-7 main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .collage {
+    max-width: 90%;
+  }
 }
 
-.top-bar-menu {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.top-bar-menu-left {
-  display: flex;
-}
-
-#guest-checkout-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-#guest-checkout-modal .modal-content {
-  background: #fff;
-  padding: 2em;
-  border-radius: 8px;
-  max-width: 500px;
-  width: 90%;
-}
-
-#guest-checkout-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-}
-
-#guest-checkout-form input {
-  padding: 0.5em;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-#guest-checkout-form button {
-  padding: 0.5em 1em;
-  background: #fee8a4;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-#guest-checkout-form button.close-modal {
-  background: #f5f5f5;
+@media screen and (max-width: 1440px) {
+  .page-id-7 main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }

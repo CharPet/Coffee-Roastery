@@ -88,7 +88,7 @@
             <!-- Basket modal (site-wide) -->
             <div id="basket-modal" class="basket-modal" style="display:none;" aria-hidden="true">
                 <div class="basket-inner" role="dialog" aria-label="Το καλάθι σας">
-                    <h3>Το καλάθι σας</h3>
+                    <h3>Το Καλάθι σας</h3>
                     <ul id="basket-list"></ul>
                     <div id="basket-total"></div>
                     <div class="basket-actions">

@@ -15,7 +15,7 @@ get_header();
                 κρέμα που απογειώνει κάθε γουλιά.</p>
             <span class="product-price">€10.00</span>
             <br>
-            <button class="buy-btn">Στο Καλάθι</button>
+            <button class="add-to-cart-btn">Στο Καλάθι</button>
         </div>
         <div class="product-card" data-name="Single Origin – Αιθιοπία" data-price="12.00">
             <img src="<?php echo get_template_directory_uri(); ?>/images/pzoswjy6kagrtcp0n4ri.webp" alt="Product 2" />
@@ -24,7 +24,7 @@ get_header();
                 εσπεριδοειδών και μία κομψή, φρουτώδη οξύτητα που χαρίζει φρεσκάδα.</p>
             <span class="product-price">€12.00</span>
             <br>
-            <button class="buy-btn">Στο Καλάθι</button>
+            <button class="add-to-cart-btn">Στο Καλάθι</button>
         </div>
         <div class="product-card" data-name="Blend Terra – Υπογραφή Καβουρδίσματος" data-price="9.00">
             <img src="<?php echo get_template_directory_uri(); ?>/images/pzoswjy6kagrtcp0n4ri.webp" alt="Product 3" />
@@ -33,7 +33,7 @@ get_header();
                 σε αρμονικό χαρμάνι με σοκολατένια επίγευση.</p>
             <span class="product-price">€9.00</span>
             <br>
-            <button class="buy-btn">Στο Καλάθι</button>
+            <button class="add-to-cart-btn">Στο Καλάθι</button>
         </div>
         <div class="product-card" data-name="Decaf Φυσικής Επεξεργασίας" data-price="10.00">
             <img src="<?php echo get_template_directory_uri(); ?>/images/pzoswjy6kagrtcp0n4ri.webp" alt="Product 4" />
@@ -42,7 +42,7 @@ get_header();
                 απαλή γλυκύτητα και καθαρή επίγευση.</p>
             <span class="product-price">€10.00</span>
             <br>
-            <button class="buy-btn">Στο Καλάθι</button>
+            <button class="add-to-cart-btn">Στο Καλάθι</button>
         </div>
         <div class="product-card" data-name="Cold Brew Blend" data-price="11.00">
             <img src="<?php echo get_template_directory_uri(); ?>./images/pzoswjy6kagrtcp0n4ri.webp" alt="Product 5" />
@@ -51,7 +51,7 @@ get_header();
                 και νότες κακάο και ξηρών καρπών.</p>
             <span class="product-price">€11.00</span>
             <br>
-            <button class="buy-btn">Στο Καλάθι</button>
+            <button class="add-to-cart-btn">Στο Καλάθι</button>
         </div>
         <div class="product-card" data-name="Filter Roast – Γουατεμάλα" data-price="14.00">
             <img src="<?php echo get_template_directory_uri(); ?>/images/pzoswjy6kagrtcp0n4ri.webp" alt="Product 6" />
@@ -60,7 +60,7 @@ get_header();
                 χαρακτήρα. Ιδανικός για Chemex ή V60.</p>
             <span class="product-price">€14.00</span>
             <br>
-            <button class="buy-btn">Στο Καλάθι</button>
+            <button class="add-to-cart-btn">Στο Καλάθι</button>
         </div>
         <div class="product-card" data-name="Καφές Κατσαρόλας Παραδοσιακός" data-price="10.00">
             <img src="<?php echo get_template_directory_uri(); ?>/images/pzoswjy6kagrtcp0n4ri.webp" alt="Product 7" />
@@ -69,7 +69,7 @@ get_header();
                 και πλούσια παράδοση σε κάθε γουλιά.</p>
             <span class="product-price">€10.00</span>
             <br>
-            <button class="buy-btn">Στο καλάθι</button>
+            <button class="add-to-cart-btn">Στο καλάθι</button>
         </div>
         <div class="product-card" data-name="Limited Harvest – Μικρές Παραγωγές" data-price="16.00">
             <img src="<?php echo get_template_directory_uri(); ?>/images/pzoswjy6kagrtcp0n4ri.webp" alt="Product 28" />
@@ -78,7 +78,7 @@ get_header();
                 για τους λάτρεις της εξερεύνησης.</p>
             <span class="product-price">€16.00</span>
             <br>
-            <button class="buy-btn">Στο καλάθι</button>
+            <button class="add-to-cart-btn">Στο καλάθι</button>
         </div>
 
     </section>
@@ -87,7 +87,7 @@ get_header();
         <br><br>
         <ul id="basket-list"></ul>
         <div id="basket-total"></div>
-        <button class="buy-btn" id="buy-btn-modal">Αγορά</button>
+        <button class="add-to-cart-btn" id="add-to-cart-btn-modal">Αγορά</button>
         <button id="close-basket">Κλείσιμο</button>
     </div>
 </main>

@@ -1,5 +1,5 @@
  <footer>
-     <div class="footer-part1">
+     <div class="footer-top">
 
          <figure class="logo-container-no-background">
              <a href="/" id="footer-logo-link">
@@ -38,7 +38,7 @@
                      alt="" /></a>
          </div>
      </div>
-     <div class="footer-part2">
+     <div class="footer-bottom">
          <div class="footer-info">
              <span id="copyright">&copy; 2025 Terra Coffee. Με επιφύλαξη κάθε νόμιμου δικαιώματος.</span>
              <a href="/" id="privacy">Πολιτική Απορρήτου.</a>

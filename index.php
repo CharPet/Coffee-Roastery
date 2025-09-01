@@ -58,7 +58,7 @@
                     <aside class="newsletter-aside">
                         <form class="newsletter-form">
                             <label for="newsletter-email" class="newsletter-label">
-                                Εγγραφείτε στο newsletter μας για νέα & προσφορές!
+                                Εγγραφείτε στο newsletter μας για νέα και προσφορές!
                             </label>
                             <div class="newsletter-fields">
                                 <input type="email" id="newsletter-email" class="newsletter-input"
