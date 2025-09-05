@@ -1,0 +1,37 @@
+:root {
+  /* Greens */
+  --green-1: #005b0b;
+  --green-2: #013106;
+
+  /* Yellows */
+  --yellow-1: #ffe066;
+  --yellow-2: #efca6e;
+  --yellow-3: #fee8a4;
+  --accent: #f4d03f;
+
+  /* Neutrals / text */
+  --text: #150700;
+  --light: #f9f4f2;
+  --danger: #b50000;
+
+  /* UI */
+  --border: var(--green-1);
+  --overlay: rgba(0, 0, 0, 0.55);
+
+  /* Reusable gradients */
+  --bg-gradient-main: linear-gradient(
+    135deg,
+    var(--yellow-1) 0%,
+    var(--yellow-2) 50%,
+    var(--yellow-3) 100%
+  );
+  --logo-gradient: linear-gradient(180deg, var(--green-1), var(--green-2));
+  --cta-gradient: linear-gradient(180deg, var(--green-1), var(--green-2));
+  --product-gradient: linear-gradient(180deg, var(--yellow-2), var(--yellow-3));
+  --basket-modal-bg: linear-gradient(
+    132deg,
+    var(--yellow-1) 0%,
+    var(--yellow-2) 50%,
+    var(--yellow-3) 100%
+  );
+}

@@ -12,10 +12,11 @@
 
 
     <header>
-        <!-- Mobile menu toggle button -->
         <div class="header-bar">
             <div class="top-bar">
+
                 <div class="top-bar-menu">
+
                     <div class="top-bar-menu-left">
                         <button class="mobile-nav-toggle" aria-label="Toggle navigation menu">
                             <div class="hamburger">
@@ -24,17 +25,26 @@
                                 <span></span>
                             </div>
                         </button>
+                    </div>
 
+                    <div class="top-bar-menu-center">
                         <?php if (is_user_logged_in()): ?>
                         <div class="user-welcome">
-                            Συνδεδεμένος ως, <?php echo esc_html(wp_get_current_user()->display_name); ?>!
+                            <?php echo esc_html(wp_get_current_user()->display_name); ?>!
+                        </div>
+                        <?php else: ?>
+                        <div class="user-welcome">
+                            Επισκέπτης
                         </div>
                         <?php endif; ?>
                     </div>
-                    <div id="basket-icon">
-                        <img src="<?php echo get_template_directory_uri(); ?>/icons/basket_svgrepo.com.svg"
-                            alt="Basket" />
-                        <span id="basket-count">0</span>
+
+                    <div class="top-bar-menu-right">
+                        <div id="basket-icon">
+                            <img src="<?php echo get_template_directory_uri(); ?>/icons/basket_svgrepo.com.svg"
+                                alt="Basket" />
+                            <span id="basket-count">0</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -100,7 +110,7 @@
         </div>
     </header>
 
-    <script src="./js/basket.js"></script>
+    <!-- <script src="./js/basket.js"></script> -->
 
 </body>
 

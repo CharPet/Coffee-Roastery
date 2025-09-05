@@ -12,8 +12,6 @@
                 Εξερεύνηστε τις ποικιλίες μας
             </a>
 
-            <!-- <h2>Μοναδικές ποικιλίες, αργό καβούρδισμα, η απόλυτη εμπειρία.</h2> -->
-
             <div class="testimonials-slideshow">
                 <div class="testimonial-container">
                     <div class="testimonial active">

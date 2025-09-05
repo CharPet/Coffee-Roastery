@@ -1,19 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const qs = (sel) => document.querySelector(sel);
+  const qsa = (sel) => document.querySelectorAll(sel);
   const STORAGE_KEY = "terra_basket_v1";
 
-  // DOM elements (may be missing on some pages)
-  const basketIcon = document.getElementById("basket-icon");
-  const basketModal = document.getElementById("basket-modal");
-  const basketList = document.getElementById("basket-list");
-  const basketTotal = document.getElementById("basket-total");
-  const basketCountEl = document.getElementById("basket-count");
-  const closeBasket = document.getElementById("close-basket");
-  const buyButtons = document.querySelectorAll(".add-to-cart-btn");
-  const productCards = document.querySelectorAll(".product-card");
-  const searchInput = document.getElementById("product-search");
-  const buyBtnModal = document.getElementById("buy-btn-modal");
-
-  // load/save helpers
+  // ---------------- BASKET ----------------
   function loadBasket() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -32,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function updateCount(basket) {
+  function updateCount(basket, basketCountEl) {
     if (!basketCountEl) return;
     const totalQuantity = basket.reduce(
       (sum, item) => sum + (item.quantity || 0),
@@ -41,172 +31,144 @@ document.addEventListener("DOMContentLoaded", function () {
     basketCountEl.textContent = totalQuantity;
   }
 
-  // persisted basket
-  const basket = loadBasket();
-  updateCount(basket);
+  function initBasket() {
+    const basketIcon = qs("#basket-icon");
+    const basketModal = qs("#basket-modal");
+    const basketList = qs("#basket-list");
+    const basketTotal = qs("#basket-total");
+    const basketCountEl = qs("#basket-count");
+    const closeBasket = qs("#close-basket");
+    const buyButtons = qsa(".add-to-cart-btn");
 
-  // add to basket handlers
-  if (buyButtons.length) {
-    buyButtons.forEach((btn) => {
-      btn.addEventListener("click", function () {
-        const card = btn.closest(".product-card");
-        if (!card) return;
-        const name =
-          card.getAttribute("data-name") ||
-          (card.querySelector(".product-name") &&
-            card.querySelector(".product-name").textContent) ||
-          null;
-        const priceRaw =
-          card.getAttribute("data-price") ||
-          (card.querySelector(".product-price") &&
-            card
-              .querySelector(".product-price")
-              .textContent.replace("€", "")) ||
-          null;
-        const price = priceRaw ? parseFloat(priceRaw) : NaN;
-        if (!name || isNaN(price)) {
-          console.warn("Invalid product data, skipping add", {
-            name,
-            priceRaw,
-          });
-          return;
-        }
+    const basket = loadBasket();
+    updateCount(basket, basketCountEl);
 
-        const existingItem = basket.find((item) => item.name === name);
-        if (existingItem) {
-          existingItem.quantity = (existingItem.quantity || 0) + 1;
-        } else {
-          basket.push({ name, price, quantity: 1 });
-        }
-
-        saveBasket(basket);
-        updateCount(basket);
-      });
-    });
-  }
-
-  // open modal and render basket
-  if (basketIcon && basketModal && basketList && basketTotal) {
-    basketIcon.addEventListener("click", function () {
-      basketList.innerHTML = "";
-      let total = 0;
-      basket.forEach((item, index) => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-          ${item.name} - €${item.price.toFixed(2)} (${item.quantity}x)
-          <button class="remove-btn" data-index="${index}">✖</button>
-        `;
-        basketList.appendChild(li);
-        total += item.price * item.quantity;
-      });
-
-      basketTotal.textContent = "Συνολικό ποσό: €" + total.toFixed(2);
-      basketModal.style.display = "block";
-
-      // remove handlers
-      document.querySelectorAll(".remove-btn").forEach((btn) => {
+    // add to basket
+    if (buyButtons.length) {
+      buyButtons.forEach((btn) => {
         btn.addEventListener("click", function () {
-          const index = parseInt(btn.getAttribute("data-index"), 10);
-          if (isNaN(index)) return;
-          if (basket[index].quantity > 1) {
-            basket[index].quantity -= 1;
-          } else {
-            basket.splice(index, 1);
+          const card = btn.closest(".product-card");
+          if (!card) return;
+          const name =
+            card.getAttribute("data-name") ||
+            (card.querySelector(".product-name") &&
+              card.querySelector(".product-name").textContent) ||
+            null;
+          const priceRaw =
+            card.getAttribute("data-price") ||
+            (card.querySelector(".product-price") &&
+              card
+                .querySelector(".product-price")
+                .textContent.replace("€", "")) ||
+            null;
+          const price = priceRaw ? parseFloat(priceRaw) : NaN;
+
+          if (!name || isNaN(price)) {
+            console.warn("Invalid product data, skipping add", {
+              name,
+              priceRaw,
+            });
+            return;
           }
+
+          const existingItem = basket.find((item) => item.name === name);
+          if (existingItem) {
+            existingItem.quantity = (existingItem.quantity || 0) + 1;
+          } else {
+            basket.push({ name, price, quantity: 1 });
+          }
+
           saveBasket(basket);
-          updateCount(basket);
-          // re-open to refresh content
-          basketIcon.click();
+          updateCount(basket, basketCountEl);
         });
       });
-    });
+    }
+
+    // open basket modal
+    if (basketIcon && basketModal && basketList && basketTotal) {
+      basketIcon.addEventListener("click", function () {
+        basketList.innerHTML = "";
+        let total = 0;
+        basket.forEach((item, index) => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+            ${item.name} - €${item.price.toFixed(2)} (${item.quantity}x)
+            <button class="remove-btn" data-index="${index}">✖</button>
+          `;
+          basketList.appendChild(li);
+          total += item.price * item.quantity;
+        });
+
+        basketTotal.textContent = "Συνολικό ποσό: €" + total.toFixed(2);
+        // basketModal.style.display = 'block';
+        showModal(basketModal);
+
+        // remove handlers
+        basketList.querySelectorAll(".remove-btn").forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const index = parseInt(btn.getAttribute("data-index"), 10);
+            if (isNaN(index)) return;
+            if (basket[index].quantity > 1) {
+              basket[index].quantity -= 1;
+            } else {
+              basket.splice(index, 1);
+            }
+            saveBasket(basket);
+            updateCount(basket, basketCountEl);
+            basketIcon.click();
+          });
+        });
+      });
+    }
+
+    // close modal
+    if (closeBasket && basketModal) {
+      closeBasket.addEventListener("click", function () {
+        // basketModal.style.display = 'none';
+        hideModal(basketModal);
+      });
+    }
   }
 
-  // close modal
-  if (closeBasket && basketModal) {
-    closeBasket.addEventListener("click", function () {
-      basketModal.style.display = "none";
-    });
-  }
-
-  // Add this HTML for guest checkout modal
+  // ---------------- CHECKOUT ----------------
   function createGuestCheckoutModal() {
     const modal = document.createElement("div");
     modal.id = "guest-checkout-modal";
     modal.innerHTML = `
-        <div class="modal-content">
-            <h3>Στοιχεία Αποστολής</h3>
-            <form id="guest-checkout-form">
-                <input type="text" name="first_name" placeholder="Όνομα" required>
-                <input type="text" name="last_name" placeholder="Επώνυμο" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="text" name="address" placeholder="Διεύθυνση" required>
-                <input type="text" name="place" placeholder="Πόλη" required>
-                <input type="text" name="zip" placeholder="T.K." required>
-                <button type="submit">Ολοκλήρωση Παραγγελίας</button>
-                <button type="button" class="close-modal">Ακύρωση</button>
-            </form>
-        </div>
+      <div class="modal-content">
+        <h3>Στοιχεία Αποστολής</h3>
+        <form id="guest-checkout-form">
+          <input type="text" name="first_name" placeholder="Όνομα" required>
+          <input type="text" name="last_name" placeholder="Επώνυμο" required>
+          <input type="email" name="email" placeholder="Email" required>
+          <input type="text" name="address" placeholder="Διεύθυνση" required>
+          <input type="text" name="place" placeholder="Πόλη" required>
+          <input type="text" name="zip" placeholder="T.K." required>
+          <button type="submit">Ολοκλήρωση Παραγγελίας</button>
+          <button type="button" class="close-modal">Ακύρωση</button>
+        </form>
+      </div>
     `;
     return modal;
   }
 
-  // submit order (if modal button exists)
-  if (buyBtnModal) {
-    buyBtnModal.addEventListener("click", function () {
-      if (basket.length === 0) return;
-
-      if (!terraAjax.isLoggedIn) {
-        // Show guest checkout modal
-        const guestModal = createGuestCheckoutModal();
-        document.body.appendChild(guestModal);
-        guestModal.style.display = "block";
-
-        // Handle guest form submission
-        const form = guestModal.querySelector("form");
-        form.addEventListener("submit", function (e) {
-          e.preventDefault();
-          const formData = new FormData(form);
-          const shippingInfo = Object.fromEntries(formData);
-          submitOrder(shippingInfo);
-          guestModal.remove();
-        });
-
-        // Handle close button
-        guestModal
-          .querySelector(".close-modal")
-          .addEventListener("click", () => {
-            guestModal.remove();
-          });
-      } else {
-        // Logged in user - submit directly
-        submitOrder();
-      }
-    });
-  }
-
-  // Separate function for order submission
-  function submitOrder(shippingInfo = null) {
+  function submitOrder(basket, basketModal, shippingInfo = null) {
     const formData = new FormData();
     formData.append("action", "submit_order");
     formData.append("_ajax_nonce", terraAjax.nonce);
     formData.append("order_data", JSON.stringify(basket));
-
     if (shippingInfo) {
       formData.append("shipping_info", JSON.stringify(shippingInfo));
     }
 
-    fetch(terraAjax.ajaxurl, {
-      method: "POST",
-      body: formData,
-    })
+    fetch(terraAjax.ajaxurl, { method: "POST", body: formData })
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
           alert("Η παραγγελία καταχωρήθηκε!");
           basket.length = 0;
           saveBasket(basket);
-          updateCount(basket);
+          updateCount(basket, qs("#basket-count"));
           if (basketModal) basketModal.style.display = "none";
         } else {
           throw new Error(data.data);
@@ -214,12 +176,49 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .catch((error) => {
         console.error("Order submission error:", error);
-        alert("Σφάλμα κατά την καταχώρηση της παραγγελίας: " + error.message);
+        alert("Σφάλμα κατά την καταχώρηση: " + error.message);
       });
   }
 
-  // SEARCH BAR (guarded)
-  if (searchInput && productCards.length) {
+  function initCheckout() {
+    const buyBtnModal = qs("#buy-btn-modal");
+    const basketModal = qs("#basket-modal");
+    const basket = loadBasket();
+
+    if (!buyBtnModal) return;
+
+    buyBtnModal.addEventListener("click", function () {
+      if (basket.length === 0) return;
+
+      if (!terraAjax.isLoggedIn) {
+        const guestModal = createGuestCheckoutModal();
+        document.body.appendChild(guestModal);
+        guestModal.style.display = "block";
+
+        const form = guestModal.querySelector("form");
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formData = new FormData(form);
+          const shippingInfo = Object.fromEntries(formData);
+          submitOrder(basket, basketModal, shippingInfo);
+          guestModal.remove();
+        });
+
+        guestModal
+          .querySelector(".close-modal")
+          .addEventListener("click", () => guestModal.remove());
+      } else {
+        submitOrder(basket, basketModal);
+      }
+    });
+  }
+
+  // ---------------- SEARCH ----------------
+  function initSearch() {
+    const searchInput = qs("#product-search");
+    const productCards = qsa(".product-card");
+    if (!searchInput || !productCards.length) return;
+
     searchInput.addEventListener("input", function () {
       const query = searchInput.value.toLowerCase();
       productCards.forEach((card) => {
@@ -227,208 +226,157 @@ document.addEventListener("DOMContentLoaded", function () {
         const descEl = card.querySelector(".product-desc");
         const name = nameEl ? nameEl.textContent.toLowerCase() : "";
         const desc = descEl ? descEl.textContent.toLowerCase() : "";
-        const match = name.includes(query) || desc.includes(query);
-        card.style.display = match ? "block" : "none";
+        card.style.display =
+          name.includes(query) || desc.includes(query) ? "block" : "none";
       });
     });
   }
 
-  // Mobile navigation logic moved from header.php
-  (function setupMobileNav() {
-    const mobileToggle = document.querySelector(".mobile-nav-toggle");
-    const mobileNav = document.querySelector(".mobile-nav");
-    const hamburger = document.querySelector(".hamburger");
+  // ---------------- MOBILE NAV ----------------
+  function initMobileNav() {
+    const mobileToggle = qs(".mobile-nav-toggle");
+    const mobileNav = qs(".mobile-nav");
+    const hamburger = qs(".hamburger");
+    if (!mobileNav) return;
 
-    if (!mobileNav) return; // nothing to do on pages without mobile nav
-
-    // Create overlay if it doesn't exist
-    let navOverlay = document.querySelector(".nav-overlay");
+    let navOverlay = qs(".nav-overlay");
     if (!navOverlay) {
       navOverlay = document.createElement("div");
       navOverlay.className = "nav-overlay";
       document.body.appendChild(navOverlay);
     }
 
-    function openMenu() {
-      mobileNav.classList.add("active");
-      navOverlay.classList.add("active");
-      if (hamburger) hamburger.classList.add("active");
-      document.body.style.overflow = "hidden";
+    function toggleMenu() {
+      const isActive = mobileNav.classList.contains("active");
+      if (isActive) {
+        mobileNav.classList.remove("active");
+        navOverlay.classList.remove("active");
+        if (hamburger) hamburger.classList.remove("active");
+        document.body.style.overflow = "";
+      } else {
+        mobileNav.classList.add("active");
+        navOverlay.classList.add("active");
+        if (hamburger) hamburger.classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
     }
 
-    function closeMenu() {
-      mobileNav.classList.remove("active");
-      navOverlay.classList.remove("active");
-      if (hamburger) hamburger.classList.remove("active");
-      document.body.style.overflow = "";
-    }
+    if (mobileToggle) mobileToggle.addEventListener("click", toggleMenu);
+    navOverlay.addEventListener("click", toggleMenu);
 
-    function toggleMobileMenu() {
-      if (mobileNav.classList.contains("active")) closeMenu();
-      else openMenu();
-    }
-
-    if (mobileToggle) mobileToggle.addEventListener("click", toggleMobileMenu);
-    navOverlay.addEventListener("click", toggleMobileMenu);
-
-    // Close menu on nav link click
-    const navLinksItems = document.querySelectorAll(".mobile-nav-links a");
-    navLinksItems.forEach((link) => {
-      link.addEventListener("click", function () {
-        if (mobileNav.classList.contains("active")) closeMenu();
+    qsa(".mobile-nav-links a").forEach((link) => {
+      link.addEventListener("click", () => {
+        if (mobileNav.classList.contains("active")) toggleMenu();
       });
     });
 
-    // Close menu on escape key
-    document.addEventListener("keydown", function (e) {
+    document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && mobileNav.classList.contains("active")) {
-        closeMenu();
+        toggleMenu();
       }
     });
 
-    // Handle window resize: close mobile menu on large screens
-    window.addEventListener("resize", function () {
+    window.addEventListener("resize", () => {
       if (window.innerWidth > 1024 && mobileNav.classList.contains("active")) {
-        closeMenu();
+        toggleMenu();
       }
     });
-  })();
-});
-
-//testimonials
-
-let slideIndex = 1;
-showSlides(slideIndex);
-
-// Auto-advance slides every 5 seconds
-setInterval(function () {
-  slideIndex++;
-  if (slideIndex > 3) slideIndex = 1;
-  showSlides(slideIndex);
-}, 5000);
-
-function currentSlide(n) {
-  showSlides((slideIndex = n));
-}
-
-function showSlides(n) {
-  let slides = document.getElementsByClassName("testimonial");
-  let dots = document.getElementsByClassName("dot");
-
-  if (n > slides.length) {
-    slideIndex = 1;
-  }
-  if (n < 1) {
-    slideIndex = slides.length;
   }
 
-  for (let i = 0; i < slides.length; i++) {
-    slides[i].classList.remove("active");
-  }
+  // ---------------- TESTIMONIALS ----------------
+  function initTestimonials() {
+    let slideIndex = 1;
+    showSlides(slideIndex);
 
-  for (let i = 0; i < dots.length; i++) {
-    dots[i].classList.remove("active");
-  }
+    setInterval(() => {
+      slideIndex++;
+      showSlides(slideIndex);
+    }, 5000);
 
-  if (slides[slideIndex - 1]) {
-    slides[slideIndex - 1].classList.add("active");
-  }
-  if (dots[slideIndex - 1]) {
-    dots[slideIndex - 1].classList.add("active");
-  }
-}
+    function showSlides(n) {
+      const slides = qsa(".testimonial");
+      const dots = qsa(".dot");
 
-// Password strength indicator
-document.getElementById("password").addEventListener("input", function () {
-  const password = this.value;
+      if (!slides.length) return;
 
-  if (password.length < 6) {
-    this.style.borderColor = "#dc3545";
-  } else if (password.length < 8) {
-    this.style.borderColor = "#ffc107";
-  } else {
-    this.style.borderColor = "#28a745";
-  }
-});
+      if (n > slides.length) slideIndex = 1;
+      if (n < 1) slideIndex = slides.length;
 
-// Confirm password validation
-document
-  .getElementById("confirm_password")
-  .addEventListener("input", function () {
-    const password = document.getElementById("password").value;
-    const confirmPassword = this.value;
+      slides.forEach((s) => s.classList.remove("active"));
+      dots.forEach((d) => d.classList.remove("active"));
 
-    if (confirmPassword === password && confirmPassword.length > 0) {
-      this.style.borderColor = "#28a745";
-    } else if (confirmPassword.length > 0) {
-      this.style.borderColor = "#dc3545";
-    }
-  });
-
-//Mobile Navigation JavaScript
-document.addEventListener("DOMContentLoaded", function () {
-  const mobileToggle = document.querySelector(".mobile-nav-toggle");
-  const mobileNav = document.querySelector(".mobile-nav");
-  const hamburger = document.querySelector(".hamburger");
-
-  // Create overlay if it doesn't exist
-  let navOverlay = document.querySelector(".nav-overlay");
-  if (!navOverlay) {
-    navOverlay = document.createElement("div");
-    navOverlay.className = "nav-overlay";
-    document.body.appendChild(navOverlay);
-  }
-
-  function toggleMobileMenu() {
-    const isActive = mobileNav.classList.contains("active");
-
-    if (isActive) {
-      // Close menu
-      mobileNav.classList.remove("active");
-      navOverlay.classList.remove("active");
-      hamburger.classList.remove("active");
-      document.body.style.overflow = "";
-    } else {
-      // Open menu
-      mobileNav.classList.add("active");
-      navOverlay.classList.add("active");
-      hamburger.classList.add("active");
-      document.body.style.overflow = "hidden";
+      if (slides[slideIndex - 1])
+        slides[slideIndex - 1].classList.add("active");
+      if (dots[slideIndex - 1]) dots[slideIndex - 1].classList.add("active");
     }
   }
 
-  // Toggle menu on button click
-  if (mobileToggle) {
-    mobileToggle.addEventListener("click", toggleMobileMenu);
+  // ---------------- PASSWORD VALIDATION ----------------
+  function initPasswordValidation() {
+    const password = qs("#password");
+    const confirmPassword = qs("#confirm_password");
+
+    if (password) {
+      password.addEventListener("input", function () {
+        if (this.value.length < 6) {
+          this.style.borderColor = "#dc3545";
+        } else if (this.value.length < 8) {
+          this.style.borderColor = "#ffc107";
+        } else {
+          this.style.borderColor = "#28a745";
+        }
+      });
+    }
+
+    if (confirmPassword && password) {
+      confirmPassword.addEventListener("input", function () {
+        if (this.value === password.value && this.value.length > 0) {
+          this.style.borderColor = "#28a745";
+        } else if (this.value.length > 0) {
+          this.style.borderColor = "#dc3545";
+        }
+      });
+    }
   }
 
-  // Close menu on overlay click
-  navOverlay.addEventListener("click", toggleMobileMenu);
+  // ---------------- MODAL OVERLAY ----------------
+  // ensure overlay exists
+  function ensureOverlay() {
+    let overlay = document.getElementById("modal-overlay");
+    if (!overlay) {
+      overlay = document.createElement("div");
+      overlay.id = "modal-overlay";
+      document.body.appendChild(overlay);
+    }
+    return overlay;
+  }
 
-  // Close menu on nav link click
-  const navLinksItems = document.querySelectorAll(".mobile-nav-links a");
-  navLinksItems.forEach((link) => {
-    link.addEventListener("click", function () {
-      if (mobileNav.classList.contains("active")) {
-        toggleMobileMenu();
-      }
+  // show modal helper
+  function showModal(modalEl) {
+    const overlay = ensureOverlay();
+    overlay.classList.add("active");
+    if (typeof modalEl.style !== "undefined") modalEl.style.display = "block";
+    modalEl.setAttribute("aria-hidden", "false");
+    // close modal when clicking overlay
+    overlay.addEventListener("click", function onOverlayClick() {
+      hideModal(modalEl);
+      overlay.removeEventListener("click", onOverlayClick);
     });
-  });
+  }
 
-  // Close menu on escape key
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && mobileNav.classList.contains("active")) {
-      toggleMobileMenu();
-    }
-  });
+  // hide modal helper
+  function hideModal(modalEl) {
+    const overlay = document.getElementById("modal-overlay");
+    if (overlay) overlay.classList.remove("active");
+    if (typeof modalEl.style !== "undefined") modalEl.style.display = "none";
+    modalEl.setAttribute("aria-hidden", "true");
+  }
 
-  // Handle window resize
-  window.addEventListener("resize", function () {
-    if (window.innerWidth > 1024 && mobileNav.classList.contains("active")) {
-      mobileNav.classList.remove("active");
-      navOverlay.classList.remove("active");
-      hamburger.classList.remove("active");
-      document.body.style.overflow = "";
-    }
-  });
+  // ---------------- INIT ALL ----------------
+  initBasket();
+  initCheckout();
+  initSearch();
+  initMobileNav();
+  initTestimonials();
+  initPasswordValidation();
 });

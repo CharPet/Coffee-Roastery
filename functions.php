@@ -7,18 +7,18 @@ add_action('wp_enqueue_scripts', 'kafekopteio_enqueue_styles');
 
 
 function terra_enqueue_scripts() {
+    // Ensure path matches the actual file location
     wp_enqueue_script(
-        'terra-basket', 
-        get_template_directory_uri() . '/js/basket.js', 
-        array('jquery'), 
-        '1.0.0', 
-        true
+        'terra-basket',
+        get_template_directory_uri() . '/js/basket.js',
+        array(), // add dependencies if needed
+        '1.0.0',
+        true // load in footer
     );
 
-    // Localize the script with new data
     wp_localize_script('terra-basket', 'terraAjax', array(
-        'ajaxurl' => admin_url('admin-ajax.php'),
-        'nonce' => wp_create_nonce('submit_order_nonce'),
+        'ajaxurl'    => admin_url('admin-ajax.php'),
+        'nonce'      => wp_create_nonce('submit_order_nonce'),
         'isLoggedIn' => is_user_logged_in()
     ));
 }
@@ -122,3 +122,15 @@ function create_orders_tables() {
     dbDelta($sql_items);
 }
 add_action('init', 'create_orders_tables');
+
+// add_action('user_register','kafekopteio_save_extra_user_meta', 10, 1);
+// function kafekopteio_save_extra_user_meta($user_id){
+//     if (empty($user_id)) return;
+//     if (!empty($_POST['first_name'])) update_user_meta($user_id,'first_name', sanitize_text_field($_POST['first_name']));
+//     if (!empty($_POST['last_name']))  update_user_meta($user_id,'last_name',  sanitize_text_field($_POST['last_name']));
+//     if (!empty($_POST['address']))    update_user_meta($user_id,'address',    wp_kses_post($_POST['address']));
+//     if (!empty($_POST['place']))      update_user_meta($user_id,'place',      sanitize_text_field($_POST['place']));
+//     if (!empty($_POST['zip']))        update_user_meta($user_id,'zip',        sanitize_text_field($_POST['zip']));
+//     if (!empty($_POST['location']))   update_user_meta($user_id,'location',   sanitize_text_field($_POST['location']));
+//     if (isset($_POST['newsletter']))  update_user_meta($user_id,'newsletter_subscribed', 1);
+// }
