@@ -340,7 +340,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ---------------- MODAL OVERLAY ----------------
-  // ensure overlay exists
   function ensureOverlay() {
     let overlay = document.getElementById("modal-overlay");
     if (!overlay) {

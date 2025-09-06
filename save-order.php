@@ -1,13 +1,11 @@
 <?php
 
-// Load WordPress functions (optional but good practice if using WordPress functions)
 require_once('../../../wp-load.php');
 
-// DB credentials from wp-config
-$host = '127.0.0.1'; // or 'localhost'
-$user = 'root'; // or check LocalWP DB tab
-$password = 'root'; // or check LocalWP DB tab
-$database = 'local_kafekopteio4'; // adjust to your DB name
+$host = '127.0.0.1';
+$user = 'root';
+$password = 'root'; 
+$database = 'local_kafekopteio4'; 
 
 $conn = new mysqli($host, $user, $password, $database);
 

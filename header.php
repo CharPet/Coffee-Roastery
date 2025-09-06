@@ -110,8 +110,6 @@
         </div>
     </header>
 
-    <!-- <script src="./js/basket.js"></script> -->
-
 </body>
 
 </html>

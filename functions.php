@@ -123,6 +123,41 @@ function create_orders_tables() {
 }
 add_action('init', 'create_orders_tables');
 
+function saveUserRegistrationData($user_id, $user_data) {
+    global $wpdb;
+    $table = $wpdb->prefix . 'user_registrations';
+
+    // Debug log the data being inserted
+    error_log('Attempting to insert user data: ' . print_r([
+        'user_id' => $user_id,
+        'username' => $user_data['username'],
+        'table' => $table
+    ], true));
+
+    $result = $wpdb->insert(
+        $table,
+        array(
+            'user_id' => $user_id,
+            'username' => $user_data['username'],
+            'email' => $user_data['email'],
+            'first_name' => $user_data['first_name'],
+            'last_name' => $user_data['last_name'],
+            'place' => $user_data['place'],
+            'zip' => $user_data['zip'],
+            'address' => $user_data['address'],
+            'newsletter_subscribed' => isset($user_data['newsletter']) ? 1 : 0
+        ),
+        array('%d', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d')
+    );
+
+    if ($result === false) {
+        // Log the actual MySQL error
+        error_log('Database error details: ' . $wpdb->last_error);
+        error_log('Last SQL query: ' . $wpdb->last_query);
+        return false;
+    }
+    return true;
+}
 // add_action('user_register','kafekopteio_save_extra_user_meta', 10, 1);
 // function kafekopteio_save_extra_user_meta($user_id){
 //     if (empty($user_id)) return;

@@ -1,7 +1,5 @@
 <?php
-// save-user-registration.php
 
-// Load WordPress functions
 require_once('../../../wp-load.php');
 
 // Handle registration via WP APIs
@@ -30,7 +28,7 @@ if ( username_exists($username) || email_exists($email) ) {
   wp_send_json_error('User already exists', 409);
 }
 
-// create WP user (password is hashed and stored in wp_users)
+// create WP user
 $user_id = wp_create_user($username, $password, $email);
 if ( is_wp_error($user_id) ) {
   wp_send_json_error($user_id->get_error_message(), 500);
