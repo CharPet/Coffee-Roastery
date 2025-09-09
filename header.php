@@ -10,13 +10,10 @@
 
 <body <?php body_class(); ?>>
 
-
     <header>
         <div class="header-bar">
             <div class="top-bar">
-
                 <div class="top-bar-menu">
-
                     <div class="top-bar-menu-left">
                         <button class="mobile-nav-toggle" aria-label="Toggle navigation menu">
                             <div class="hamburger">
@@ -27,10 +24,14 @@
                         </button>
                     </div>
 
-                    <div class="top-bar-menu-center">
+                    <!-- Center: User Status -->
+                    <div class="top-bar-center">
                         <?php if (is_user_logged_in()): ?>
                         <div class="user-welcome">
-                            <?php echo esc_html(wp_get_current_user()->display_name); ?>!
+                            <?php 
+                            $current_user = wp_get_current_user();
+                            echo esc_html($current_user->display_name ?: $current_user->user_login);
+                            ?>
                         </div>
                         <?php else: ?>
                         <div class="user-welcome">
@@ -82,7 +83,7 @@
                 </ul>
             </nav>
 
-            <!-- Mobile Navigation Menu (hidden by default) -->
+            <!-- Mobile Navigation Menu -->
             <nav class="mobile-nav">
                 <ul class="nav-links mobile-nav-links">
                     <li><a href="/">Αρχική</a></li>
@@ -95,7 +96,7 @@
                 </ul>
             </nav>
 
-            <!-- Basket modal (site-wide) -->
+            <!-- Basket modal -->
             <div id="basket-modal" class="basket-modal" style="display:none;" aria-hidden="true">
                 <div class="basket-inner" role="dialog" aria-label="Το καλάθι σας">
                     <h3>Το Καλάθι σας</h3>
@@ -110,6 +111,4 @@
         </div>
     </header>
 
-</body>
-
-</html>
+    <!-- Remove </body></html> from here - they belong in footer.php -->

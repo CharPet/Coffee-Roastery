@@ -1,27 +1,270 @@
 document.addEventListener("DOMContentLoaded", function () {
   const qs = (sel) => document.querySelector(sel);
   const qsa = (sel) => document.querySelectorAll(sel);
+
+  // Initialize basket
+  let basket = [];
   const STORAGE_KEY = "terra_basket_v1";
 
-  // ---------------- BASKET ----------------
   function loadBasket() {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : [];
+      const stored = localStorage.getItem(STORAGE_KEY);
+      basket = stored ? JSON.parse(stored) : [];
     } catch (e) {
-      console.error("Failed to load basket", e);
-      return [];
+      console.warn("Failed to load basket:", e);
+      basket = [];
     }
+    return basket;
   }
 
-  function saveBasket(basket) {
+  function saveBasket() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(basket));
     } catch (e) {
-      console.error("Failed to save basket", e);
+      console.warn("Failed to save basket:", e);
     }
   }
 
+  // Load basket on page load
+  loadBasket();
+
+  // Buy button handler
+  const buyBtn = qs("#buy-btn-modal");
+  if (buyBtn) {
+    buyBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      console.log("Buy button clicked, basket:", basket);
+
+      if (!basket || basket.length === 0) {
+        alert("Το καλάθι είναι άδειο");
+        return;
+      }
+
+      // Check if user is logged in
+      const isLoggedIn =
+        typeof terraAjax !== "undefined" && terraAjax.isLoggedIn;
+      console.log("User logged in:", isLoggedIn);
+
+      if (isLoggedIn) {
+        // Submit order directly
+        submitOrder();
+      } else {
+        // Show guest checkout
+        openGuestCheckout();
+      }
+    });
+  }
+
+  function submitOrder(shippingInfo = null) {
+    console.log("Submitting order...", { basket, shippingInfo, terraAjax });
+
+    if (typeof terraAjax === "undefined") {
+      console.error("terraAjax not available");
+      alert("Σφάλμα: Δεν είναι δυνατή η επικοινωνία με τον διακομιστή");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("action", "submit_order");
+    formData.append("_ajax_nonce", terraAjax.nonce);
+    formData.append("order_data", JSON.stringify(basket));
+
+    if (shippingInfo) {
+      formData.append("shipping_info", JSON.stringify(shippingInfo));
+    }
+
+    fetch(terraAjax.ajaxurl, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Order response:", data);
+
+        if (data.success) {
+          alert("Η παραγγελία καταχωρήθηκε επιτυχώς!");
+
+          // Clear basket
+          basket.length = 0;
+          saveBasket();
+
+          // Update UI
+          const basketCount = qs("#basket-count");
+          if (basketCount) basketCount.textContent = "0";
+
+          // Close modals
+          const basketModal = qs("#basket-modal");
+          const guestModal = qs("#guest-checkout-modal");
+          const overlay = qs("#modal-overlay");
+
+          if (basketModal) basketModal.style.display = "none";
+          if (guestModal) guestModal.style.display = "none";
+          if (overlay) overlay.classList.remove("active");
+        } else {
+          alert("Σφάλμα: " + (data.data || "Άγνωστο σφάλμα"));
+        }
+      })
+      .catch((error) => {
+        console.error("Order error:", error);
+        alert("Σφάλμα κατά την υποβολή της παραγγελίας");
+      });
+  }
+
+  function openGuestCheckout() {
+    // Create guest modal if it doesn't exist
+    let modal = qs("#guest-checkout-modal");
+    if (!modal) {
+      modal = createGuestCheckoutModal();
+      document.body.appendChild(modal);
+    }
+
+    // Show modal and overlay
+    const overlay = ensureOverlay();
+    overlay.classList.add("active");
+    modal.style.display = "flex";
+
+    // Lock scroll
+    lockScroll();
+  }
+
+  function closeGuestCheckout() {
+    const modal = document.getElementById("guest-checkout-modal");
+    if (modal) {
+      modal.style.display = "none";
+    }
+    unlockScroll();
+  }
+
+  function createGuestCheckoutModal() {
+    const modal = document.createElement("div");
+    modal.id = "guest-checkout-modal";
+    modal.className = "modal-overlay";
+    modal.innerHTML = `
+      <div class="modal-content">
+        <h3>Στοιχεία Παραλαβής</h3>
+        <form id="guest-checkout-form" class="signup-form">
+          <div class="form-row">
+            <div class="input-group">
+              <label for="guest-name">Όνομα:</label>
+              <input type="text" id="guest-name" name="name" required>
+            </div>
+            <div class="input-group">
+              <label for="guest-email">Email:</label>
+              <input type="email" id="guest-email" name="email" required>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="input-group">
+              <label for="guest-phone">Τηλέφωνο:</label>
+              <input type="tel" id="guest-phone" name="phone" required>
+            </div>
+            <div class="input-group">
+              <label for="guest-place">Τόπος:</label>
+              <input type="text" id="guest-place" name="place" required>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="input-group">
+              <label for="guest-zip">Τ.Κ:</label>
+              <input type="text" id="guest-zip" name="zip" required>
+            </div>
+            <div class="input-group">
+              <label for="guest-address">Διεύθυνση:</label>
+              <input type="text" id="guest-address" name="address" required>
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="submit-btn">Ολοκλήρωση Παραγγελίας</button>
+            <button type="button" class="close-modal cancel-btn">Ακύρωση</button>
+          </div>
+        </form>
+      </div>
+    `;
+
+    // Add form submit handler
+    const form = modal.querySelector("#guest-checkout-form");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const shippingInfo = Object.fromEntries(formData);
+      console.log("Guest shipping info:", shippingInfo);
+      submitOrder(shippingInfo);
+    });
+
+    // Add close handler
+    const closeBtn = modal.querySelector(".close-modal");
+    closeBtn.addEventListener("click", function () {
+      closeGuestCheckout();
+    });
+
+    // Close on overlay click
+    modal.addEventListener("click", function (e) {
+      if (e.target === modal) {
+        closeGuestCheckout();
+      }
+    });
+
+    return modal;
+  }
+
+  function ensureOverlay() {
+    let overlay = qs("#modal-overlay");
+    if (!overlay) {
+      overlay = document.createElement("div");
+      overlay.id = "modal-overlay";
+      overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 1999;
+        display: none;
+      `;
+      document.body.appendChild(overlay);
+    }
+    return overlay;
+  }
+
+  // --- START: SCROLL LOCK LOGIC ---
+  function lockScroll() {
+    // If already locked, do nothing
+    if (document.body.classList.contains("modal-open")) return;
+
+    // Save the current scroll position
+    const scrollY = window.scrollY;
+    document.body.dataset.scrollY = scrollY;
+
+    // Add styles to lock the body
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.classList.add("modal-open");
+  }
+
+  function unlockScroll() {
+    // If not locked, do nothing
+    if (!document.body.classList.contains("modal-open")) return;
+
+    // Retrieve the saved scroll position
+    const scrollY = document.body.dataset.scrollY || "0";
+
+    // Remove locking styles
+    document.body.style.position = "";
+    document.body.style.width = "";
+    document.body.style.top = "";
+    document.body.classList.remove("modal-open");
+
+    // Restore the original scroll position
+    window.scrollTo(0, parseInt(scrollY));
+  }
+  // --- END: SCROLL LOCK LOGIC ---
+
+  // ---------------- BASKET ----------------
   function updateCount(basket, basketCountEl) {
     if (!basketCountEl) return;
     const totalQuantity = basket.reduce(
@@ -130,89 +373,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // ---------------- CHECKOUT ----------------
-  function createGuestCheckoutModal() {
-    const modal = document.createElement("div");
-    modal.id = "guest-checkout-modal";
-    modal.innerHTML = `
-      <div class="modal-content">
-        <h3>Στοιχεία Αποστολής</h3>
-        <form id="guest-checkout-form">
-          <input type="text" name="first_name" placeholder="Όνομα" required>
-          <input type="text" name="last_name" placeholder="Επώνυμο" required>
-          <input type="email" name="email" placeholder="Email" required>
-          <input type="text" name="address" placeholder="Διεύθυνση" required>
-          <input type="text" name="place" placeholder="Πόλη" required>
-          <input type="text" name="zip" placeholder="T.K." required>
-          <button type="submit">Ολοκλήρωση Παραγγελίας</button>
-          <button type="button" class="close-modal">Ακύρωση</button>
-        </form>
-      </div>
-    `;
-    return modal;
-  }
-
-  function submitOrder(basket, basketModal, shippingInfo = null) {
-    const formData = new FormData();
-    formData.append("action", "submit_order");
-    formData.append("_ajax_nonce", terraAjax.nonce);
-    formData.append("order_data", JSON.stringify(basket));
-    if (shippingInfo) {
-      formData.append("shipping_info", JSON.stringify(shippingInfo));
-    }
-
-    fetch(terraAjax.ajaxurl, { method: "POST", body: formData })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success) {
-          alert("Η παραγγελία καταχωρήθηκε!");
-          basket.length = 0;
-          saveBasket(basket);
-          updateCount(basket, qs("#basket-count"));
-          if (basketModal) basketModal.style.display = "none";
-        } else {
-          throw new Error(data.data);
-        }
-      })
-      .catch((error) => {
-        console.error("Order submission error:", error);
-        alert("Σφάλμα κατά την καταχώρηση: " + error.message);
-      });
-  }
-
-  function initCheckout() {
-    const buyBtnModal = qs("#buy-btn-modal");
-    const basketModal = qs("#basket-modal");
-    const basket = loadBasket();
-
-    if (!buyBtnModal) return;
-
-    buyBtnModal.addEventListener("click", function () {
-      if (basket.length === 0) return;
-
-      if (!terraAjax.isLoggedIn) {
-        const guestModal = createGuestCheckoutModal();
-        document.body.appendChild(guestModal);
-        guestModal.style.display = "block";
-
-        const form = guestModal.querySelector("form");
-        form.addEventListener("submit", function (e) {
-          e.preventDefault();
-          const formData = new FormData(form);
-          const shippingInfo = Object.fromEntries(formData);
-          submitOrder(basket, basketModal, shippingInfo);
-          guestModal.remove();
-        });
-
-        guestModal
-          .querySelector(".close-modal")
-          .addEventListener("click", () => guestModal.remove());
-      } else {
-        submitOrder(basket, basketModal);
-      }
-    });
-  }
-
   // ---------------- SEARCH ----------------
   function initSearch() {
     const searchInput = qs("#product-search");
@@ -285,30 +445,97 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // ---------------- TESTIMONIALS ----------------
   function initTestimonials() {
-    let slideIndex = 1;
-    showSlides(slideIndex);
+    const testimonials = qsa(".testimonial");
+    const dots = qsa(".dot");
 
-    setInterval(() => {
-      slideIndex++;
-      showSlides(slideIndex);
-    }, 5000);
-
-    function showSlides(n) {
-      const slides = qsa(".testimonial");
-      const dots = qsa(".dot");
-
-      if (!slides.length) return;
-
-      if (n > slides.length) slideIndex = 1;
-      if (n < 1) slideIndex = slides.length;
-
-      slides.forEach((s) => s.classList.remove("active"));
-      dots.forEach((d) => d.classList.remove("active"));
-
-      if (slides[slideIndex - 1])
-        slides[slideIndex - 1].classList.add("active");
-      if (dots[slideIndex - 1]) dots[slideIndex - 1].classList.add("active");
+    if (!testimonials.length) {
+      console.warn(
+        "No testimonials found - make sure elements have class 'testimonial'"
+      );
+      return;
     }
+
+    let slideIndex = 0; // Start from 0 for array indexing
+
+    // Initialize - hide all testimonials first
+    testimonials.forEach((testimonial, index) => {
+      testimonial.style.display = "none";
+      testimonial.classList.remove("active");
+    });
+
+    // Show first testimonial
+    if (testimonials[0]) {
+      testimonials[0].style.display = "block";
+      testimonials[0].classList.add("active");
+    }
+
+    // Update dots if they exist
+    if (dots.length) {
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("active", index === 0);
+      });
+    }
+
+    function showSlides() {
+      // Hide current testimonial
+      if (testimonials[slideIndex]) {
+        testimonials[slideIndex].style.display = "none";
+        testimonials[slideIndex].classList.remove("active");
+      }
+
+      // Move to next slide
+      slideIndex = (slideIndex + 1) % testimonials.length;
+
+      // Show new testimonial
+      if (testimonials[slideIndex]) {
+        testimonials[slideIndex].style.display = "block";
+        testimonials[slideIndex].classList.add("active");
+      }
+
+      // Update dots
+      if (dots.length) {
+        dots.forEach((dot, index) => {
+          dot.classList.toggle("active", index === slideIndex);
+        });
+      }
+
+      console.log(
+        `Showing testimonial ${slideIndex + 1} of ${testimonials.length}`
+      );
+    }
+
+    // Auto-rotate every 5 seconds
+    const testimonialInterval = setInterval(showSlides, 5000);
+
+    // Add click handlers for dots if they exist
+    dots.forEach((dot, index) => {
+      dot.addEventListener("click", function () {
+        clearInterval(testimonialInterval); // Stop auto-rotation temporarily
+
+        // Hide current
+        if (testimonials[slideIndex]) {
+          testimonials[slideIndex].style.display = "none";
+          testimonials[slideIndex].classList.remove("active");
+        }
+
+        // Show clicked
+        slideIndex = index;
+        if (testimonials[slideIndex]) {
+          testimonials[slideIndex].style.display = "block";
+          testimonials[slideIndex].classList.add("active");
+        }
+
+        // Update dots
+        dots.forEach((d, i) => {
+          d.classList.toggle("active", i === index);
+        });
+
+        // Restart auto-rotation after 10 seconds
+        setTimeout(() => {
+          setInterval(showSlides, 5000);
+        }, 10000);
+      });
+    });
   }
 
   // ---------------- PASSWORD VALIDATION ----------------
@@ -373,7 +600,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // ---------------- INIT ALL ----------------
   initBasket();
-  initCheckout();
+  // initCheckout();
   initSearch();
   initMobileNav();
   initTestimonials();
