@@ -753,6 +753,7 @@ form {
   text-align: center;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
@@ -2347,6 +2348,14 @@ input.invalid {
   font-size: 1.4rem;
 }
 
+body.page-id-49,
+body.page-id-7,
+body.page-id-10,
+body.page-id-44,
+body.page-id-46 {
+  min-width: 320px;
+}
+
 @media screen and (max-width: 1440px) {
   .page-id-7 main {
     display: flex;
@@ -2546,6 +2555,15 @@ input.invalid {
   header > .header-nav {
     margin-top: 0;
   }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2em;
+    margin: 3em auto;
+    max-width: 1200px;
+    padding: 0 2em;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -2697,8 +2715,8 @@ input.invalid {
   }
 
   .product-desc {
-    margin: 1em;
-    padding: 0 0.6em 0.6em 0.6em;
+    margin: 2em;
+    padding: 0.6em;
     line-height: 1.2;
     font-size: 1.3rem;
   }
@@ -2744,7 +2762,7 @@ input.invalid {
   }
 
   .product-card img {
-    width: 70%;
+    width: 50%;
   }
 
   .product-desc {
@@ -3007,19 +3025,9 @@ input.invalid {
     padding-top: var(--top-bar-height);
   }
 
-  /* ensure header/nav don't add extra offset */
   header > .header-nav {
     margin-top: 0;
   }
-
-  /* .top-bar .top-bar-inner,
-  .top-bar-menu {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 0 1rem;
-  } */
 
   #basket-icon {
     padding: 0.4em;
@@ -3050,7 +3058,28 @@ input.invalid {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    /* This takes the element out of the flexbox flow and centers it relative to the .top-bar */
+  }
+
+  .our-news-title {
+    font-family: "Linux Libertine Bold";
+    display: block;
+    margin-bottom: 2em;
+    padding: 0.6em;
+    text-align: center;
+    font-size: 2.5rem !important;
+  }
+
+  .product-card {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  #signup-form input[type="text"],
+  #signup-form input[type="email"],
+  #signup-form input[type="password"] {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    font-size: 1.1rem;
   }
 }
 
@@ -3269,6 +3298,7 @@ input.invalid {
   }
 
   .product-desc {
+    margin: 0.8em;
     margin-bottom: 0;
   }
 
@@ -3338,6 +3368,15 @@ input.invalid {
 
   #basket-modal h3 {
     color: var(--text);
+    font-size: 1.8rem;
+  }
+
+  #basket-modal li {
+    font-size: 1.2rem;
+  }
+
+  #basket-total {
+    font-size: 1.4rem !important;
   }
 
   #basket-total {
@@ -3454,5 +3493,9 @@ input.invalid {
     left: 50%;
     transform: translateX(-50%);
     /* This takes the element out of the flexbox flow and centers it relative to the .top-bar */
+  }
+
+  .product-card {
+    width: 100%;
   }
 }

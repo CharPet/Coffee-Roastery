@@ -34,6 +34,7 @@ function kafekopteio_handle_signup_submission() {
             exit;
         }
         
+        // If validation passes, create the user.
         $userdata = array(
             'user_login' => $username,
             'user_email' => $email,
@@ -44,16 +45,37 @@ function kafekopteio_handle_signup_submission() {
         );
         $user_id = wp_insert_user($userdata);
         
+        // Handle any errors from WordPress itself.
         if (is_wp_error($user_id)) {
             set_transient('signup_errors', $user_id->get_error_messages(), 60);
             set_transient('signup_fields', $_POST, 60);
             wp_safe_redirect(get_permalink());
             exit;
         }
+
+        // After successful user creation, save extra data to our custom table.
+        global $wpdb;
+        $registrations_table_name = $wpdb->prefix . 'user_registrations';
+        $wpdb->insert(
+            $registrations_table_name,
+            array(
+                'user_id'           => $user_id,
+                'username'          => $username,
+                'email'             => $email,
+                'first_name'        => $first_name,
+                'last_name'         => $last_name,
+                'place'             => $place,
+                'zip'               => $zip,
+                'address'           => $address,
+                'registration_time' => current_time('mysql'),
+            )
+        );
         
+        // Log the new user in.
         wp_set_current_user($user_id);
         wp_set_auth_cookie($user_id);
         
+        // Redirect to the same page but with a success flag in the URL.
         wp_safe_redirect(add_query_arg('registered', 'true', get_permalink()));
         exit;
     }
@@ -236,6 +258,24 @@ function create_custom_tables() {
         PRIMARY KEY  (id)
     ) $charset_collate;";
     dbDelta($sql_contact);
+
+    // Custom User Registrations Table
+    $registrations_table_name = $wpdb->prefix . 'user_registrations';
+    $sql_registrations = "CREATE TABLE $registrations_table_name (
+        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        user_id bigint(20) UNSIGNED NOT NULL,
+        username varchar(60) NOT NULL,
+        email varchar(100) NOT NULL,
+        first_name varchar(250) NOT NULL,
+        last_name varchar(250) NOT NULL,
+        place varchar(255) DEFAULT '' NOT NULL,
+        zip varchar(20) DEFAULT '' NOT NULL,
+        address text NOT NULL,
+        registration_time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+        PRIMARY KEY  (id),
+        KEY user_id (user_id)
+    ) $charset_collate;";
+    dbDelta($sql_registrations);
 }
 add_action('init', 'create_custom_tables');
 
