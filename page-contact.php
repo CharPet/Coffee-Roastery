@@ -15,7 +15,6 @@ get_header();
     <?php else : ?>
     <p class="contact-text">Έχεις κάποια ερώτηση; <br> Συμπλήρωσε τη φόρμα επικοινωνίας</p>
 
-    <!-- This form submits to the current page, to be handled by WordPress -->
     <form class="contact-form" method="POST" action="<?php echo esc_url(get_permalink()); ?>">
 
         <?php wp_nonce_field('contact_form_nonce', 'contact_nonce'); ?>

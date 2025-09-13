@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // --- REGEX DEFINITIONS ---
+  // REGEX DEFINITIONS
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   // Requires: 8+ characters, 1 uppercase, 1 lowercase, 1 number, 1 special character.
   const strongPasswordRegex =
@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Requires: 4-20 characters, letters, numbers, and underscores only.
   const usernameRegex = /^[a-zA-Z0-9_]{4,20}$/;
 
-  // --- HELPER FUNCTIONS ---
+  // HELPER FUNCTIONS
   function getErrorElement(input) {
     // Assumes the error span is the next sibling element.
     return input.nextElementSibling;
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     input.classList.remove("invalid");
   }
 
-  // --- VALIDATION LOGIC ---
+  // VALIDATION LOGIC
 
   // 1. Newsletter Form
   const newsletterEmail = document.querySelector("#newsletter-email");

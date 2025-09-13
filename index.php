@@ -51,8 +51,7 @@
                     </a>
                 </aside>
                 <!-- </div> -->
-                <!-- 
-                <div class="sticky-newsletter"> -->
+                <!-- <div class="sticky-newsletter"> -->
                 <aside class="newsletter-aside">
                     <form class="newsletter-form">
                         <label for="newsletter-email" class="newsletter-label">

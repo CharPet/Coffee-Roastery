@@ -24,7 +24,7 @@
                         </button>
                     </div>
 
-                    <!-- Center: User Status -->
+
                     <div class="top-bar-center">
                         <?php if (is_user_logged_in()): ?>
                         <div class="user-welcome">
@@ -52,7 +52,6 @@
         </div>
 
         <div class="header-nav">
-            <!-- Left Navigation -->
             <nav class="nav-left">
                 <ul class="nav-links nav-links-left">
                     <li><a href="/">Αρχική</a></li>
@@ -62,7 +61,6 @@
                 </ul>
             </nav>
 
-            <!-- Logo Container -->
             <a href="/">
                 <figure class="logo-container">
                     <img class="logo" src="<?php echo get_template_directory_uri(); ?>/icons/terra coffee logo2 1.webp"
@@ -74,7 +72,6 @@
                 </figure>
             </a>
 
-            <!-- Right Navigation -->
             <nav class="nav-right">
                 <ul class="nav-links nav-links-right">
                     <li><a href="<?php echo get_permalink( get_page_by_path( 'news' ) ); ?>">Τα Νέα μας</a></li>
@@ -83,7 +80,6 @@
                 </ul>
             </nav>
 
-            <!-- Mobile Navigation Menu -->
             <nav class="mobile-nav">
                 <ul class="nav-links mobile-nav-links">
                     <li><a href="/">Αρχική</a></li>
@@ -96,7 +92,6 @@
                 </ul>
             </nav>
 
-            <!-- Basket modal -->
             <div id="basket-modal" class="basket-modal" style="display:none;" aria-hidden="true">
                 <div class="basket-inner" role="dialog" aria-label="Το καλάθι σας">
                     <h3>Το Καλάθι σας</h3>
@@ -110,5 +105,3 @@
             </div>
         </div>
     </header>
-
-    <!-- Remove </body></html> from here - they belong in footer.php -->

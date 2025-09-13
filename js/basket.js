@@ -111,14 +111,12 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function openGuestCheckout() {
-    // Create guest modal if it doesn't exist
     let modal = qs("#guest-checkout-modal");
     if (!modal) {
       modal = createGuestCheckoutModal();
       document.body.appendChild(modal);
     }
 
-    // Show modal and overlay
     const overlay = ensureOverlay();
     overlay.classList.add("active");
     modal.style.display = "flex";
@@ -230,7 +228,8 @@ document.addEventListener("DOMContentLoaded", function () {
     return overlay;
   }
 
-  // --- START: SCROLL LOCK LOGIC ---
+  // START: SCROLL LOCK LOGIC
+
   function lockScroll() {
     // If already locked, do nothing
     if (document.body.classList.contains("modal-open")) return;
@@ -239,7 +238,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const scrollY = window.scrollY;
     document.body.dataset.scrollY = scrollY;
 
-    // Add styles to lock the body
     document.body.style.position = "fixed";
     document.body.style.width = "100%";
     document.body.style.top = `-${scrollY}px`;
@@ -262,9 +260,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Restore the original scroll position
     window.scrollTo(0, parseInt(scrollY));
   }
-  // --- END: SCROLL LOCK LOGIC ---
 
-  // ---------------- BASKET ----------------
+  // BASKET
   function updateCount(basket, basketCountEl) {
     if (!basketCountEl) return;
     const totalQuantity = basket.reduce(
@@ -392,7 +389,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ---------------- MOBILE NAV ----------------
+  // MOBILE NAV
   function initMobileNav() {
     const mobileToggle = qs(".mobile-nav-toggle");
     const mobileNav = qs(".mobile-nav");
@@ -443,7 +440,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ---------------- TESTIMONIALS ----------------
+  // TESTIMONIALS
   function initTestimonials() {
     const testimonials = qsa(".testimonial");
     const dots = qsa(".dot");
@@ -538,7 +535,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // ---------------- PASSWORD VALIDATION ----------------
+  //  PASSWORD VALIDATION
   function initPasswordValidation() {
     const password = qs("#password");
     const confirmPassword = qs("#confirm_password");
@@ -566,7 +563,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // ---------------- MODAL OVERLAY ----------------
+  // MODAL OVERLAY
   function ensureOverlay() {
     let overlay = document.getElementById("modal-overlay");
     if (!overlay) {
